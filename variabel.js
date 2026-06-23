@@ -1,2 +1,2 @@
-var nama = "taufiq"
-var umur = 20
+var nama = taufiq
+var nomor_urut = 20
