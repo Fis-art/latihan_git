@@ -1,3 +1,3 @@
-var nama = taufiq
+var nama = taufiq"
 var nomor_urut = 11
-var soal = 90 + 5
+var soal = 90+5=
