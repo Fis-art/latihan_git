@@ -133,3 +133,4 @@ var angka2 = 3.7
 
 var angka3 = angka1 + angka2
 console.log(angka3)
+
