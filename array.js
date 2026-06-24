@@ -7,25 +7,25 @@ console.log(angka[4])
 //length
 console.log(angka.length)
 //push
-console.log("sebelum push :" + angka)
+console.log("=========","sebelum push :" + angka)
 angka.push(6)
-console.log("sesudah push :" + angka)
+console.log("=========","sesudah push :" + angka)
 //pop
-console.log("sebelum pop : "+ angka)
+console.log("=========","sebelum pop : "+ angka)
 angka.pop()
-console.log("sesudah pop :" + angka)
+console.log("=========","sesudah pop :" + angka)
 //unshift
-console.log("sebelum unshift :" + angka)
+console.log("=========","sebelum unshift :" + angka)
 angka.unshift(8)
-console.log("sesudah unshift :" + angka)
+console.log("=========","sesudah unshift :" + angka)
 //shift
-console.log("sebelum shift :" + angka)
+console.log("=========","sebelum shift :" + angka)
 angka.shift()
-console.log("sesudah shift :" + angka)
+console.log("=========","sesudah shift :" + angka)
 
 
 //join
-var peserta = ["Andra, Taufiq, Adit, Debby"]
+var peserta = ["Andra","Taufiq","Adit","Debby"]
 console.log(peserta)
 console.log("=========","sebelum join")
 console.log(peserta)
@@ -38,3 +38,31 @@ console.log("=========","sebelum Split")
 console.log(nama)
 console.log("=========","setelah Split")
 console.log(nama.split(" ").length)
+
+//sort
+var peserta = ["Andra","Taufiq","Adit","Debby"]
+console.log("=========","sebelum Sort")
+console.log(peserta)
+console.log("=========","Sesudah Sort")
+console.log(peserta.sort())
+console.log("=========","sebelum Reverse ")
+console.log(peserta.reverse())
+
+//slice
+
+var nama = ["Andra","Taufiq","Adit","Debby"]
+console.log("=========","sebelum slice")
+console.log(nama)
+console.log("=========","Sesudah Slice")
+var newpeserta = peserta.slice(0,2)
+console.log(newpeserta)
+console.log(peserta)
+
+//Splice
+
+var nama = ["Andra","Taufiq","Adit","Debby"]
+console.log("=========","sebelum splice")
+console.log(nama)
+console.log("=========","Sesudah splice")
+peserta.splice(1,2,"Heldi","Huda")
+console.log(peserta)
