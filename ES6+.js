@@ -61,23 +61,40 @@
 // HitungPersegi(6);
 
 
-//Arrow Functions
-var HitungPersegi=(sisi) => {
+// //Arrow Functions
+// var HitungPersegi=(sisi) => {
 
-    var luas = (s) => s*s; 
-    var keliling = (s) => 4*s;
+//     var luas = (s) => s*s; 
+//     var keliling = (s) => 4*s;
    
-    console.log("luas:", luas(sisi));
-    console.log("keliling:", keliling(sisi));
-};
-HitungPersegi(6);
+//     console.log("luas:", luas(sisi));
+//     console.log("keliling:", keliling(sisi));
+// };
+// HitungPersegi(6);
 
-const Hitung_Persegi = (sisi) => {
-    const luas = (s) => s * s;
-    const keliling = (s) => 4 * s;
+// const Hitung_Persegi = (sisi) => {
+//     const luas = (s) => {
+//     return s * s; }
+//     const keliling = (s) => {
+//     return 4 * s;}
     
-    console.log("luas:", luas(sisi));
-    console.log("keliling:", keliling(sisi));
-};
+//     console.log("luas:", luas(sisi));
+//     console.log("keliling:", keliling(sisi));
+// };
 
-Hitung_Persegi(6);
+// Hitung_Persegi(6);
+
+
+let nama = "Taufiqurrahman"
+console.log("halo, selamat datang."+nama)
+console.log("halo, selamat datang.   "+nama)
+
+console.log("halo, "+nama +"! selamat datang")
+console.log(`halo, ${nama},selamat datang`)
+
+text1 = "hai"
+text2 = "namaku"
+text3 = "taufiq"
+
+console.log(text1+", "+text2+" "+text3)
+console.log('${text1}, ${text2}, {text}')
