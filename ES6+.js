@@ -72,12 +72,12 @@ var HitungPersegi=(sisi) => {
 };
 HitungPersegi(6);
 
-// const HitungPersegi = (sisi) => {
-//     const luas = (s) => s * s;
-//     const keliling = (s) => 4 * s;
+const Hitung_Persegi = (sisi) => {
+    const luas = (s) => s * s;
+    const keliling = (s) => 4 * s;
     
-//     console.log("luas:", luas(sisi));
-//     console.log("keliling:", keliling(sisi));
-// };
+    console.log("luas:", luas(sisi));
+    console.log("keliling:", keliling(sisi));
+};
 
-// HitungPersegi(6);//
+Hitung_Persegi(6);
