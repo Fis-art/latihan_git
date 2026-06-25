@@ -23,9 +23,6 @@ var orang = [
 console.log(orang[0])
 
 
-
-
-
 var identitas = [
      {
     nama : "Adit",
@@ -36,16 +33,63 @@ var identitas = [
     usia : 21,
 },
 {
-    nama : "Andra",
+    nama : "Yul",
     warnaKulit : "kuning langsat",
+    jenisKelamin : "Perempuan",
     tinggiBadan : 170,
     beratBadan : 60,
     usia : 18,
 }
 ]
-console.log(identitas[0])
-console.log(identitas[0].usia)
-console.log(identitas[1])
+// // console.log(identitas[0])
+// // console.log(identitas[0].usia)
+// // console.log(identitas[1])
+
+// console.log("==================")
+// console.log("menggunakan Pengulangan biasa")
+// for(i=0;i< orang.length; i++)
+//     console.log(orang[i].warnaKulit)
+
+// console.log("==================")
+// console.log("menggunakan Pengulangan For Each")
+
+// identitas.forEach(function(item){
+//     console.log("warna kulit : " + item.warnaKulit)
+// })
+
+
+// console.log("==================")
+// console.log("menggunakan Pengulangan map")
+
+// var warnaKulit = orang.map(function(item){
+//     return item.warnaKulit
+// })
+// console.log(warnaKulit)
+
+// console.log("==================")
+// console.log("menggunakan Pengulangan filter")
+
+// var filterJenisKelamin = identitas.filter(function(item){
+//     return item.jenisKelamin =="Perempuan"
+// })
+
+// console.log(filterJenisKelamin)
+
+// var filterUsia = identitas.filter(function(item){
+//     return item.usia > 20
+// })
+
+// console.log(filterUsia)
+
+
+
+
+
+
+
+
+
+
 
 
 
