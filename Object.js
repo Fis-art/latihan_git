@@ -44,7 +44,7 @@ var identitas = [
 }
 ]
 console.log(identitas[0])
-console.log(identitas[1])
+console.log(identitas[2])
 
 
 
