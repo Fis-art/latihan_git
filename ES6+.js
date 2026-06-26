@@ -168,15 +168,22 @@
 // console.log(restFoots)      //rest parameter
 // console.log(restFoots[1])   //select rest parameter
 
-let names = "Taufiqurrahman"
-let person = {
-    //key : value
-    nama   : names,    //Penggunaan object biasa
-    tinggi : 160,
-    umur   : 24
-}
+// let names = "Taufiqurrahman"
+// let person = {
+//     //key : value
+//     nama   : names,    //Penggunaan object biasa
+//     tinggi : 160,
+//     umur   : 24
+// }
 
-let {nama,...restbio} = person     //Enhanced object literals
+// let {nama,...restbio} = person     //Enhanced object literals
 
-console.log(nama)
-console.log(restbio)
+// console.log(nama)
+// console.log(restbio)
+
+//Spread Operator
+//Spread Operator digunakan untuk membagi elemen array atau properti pada objek, 
+//sehingga elemen array dapat ditambahkan/dimasukan ke dalam array baru
+
+let fruit = ["strawberry","mangga","apel", "jeruk"]
+
