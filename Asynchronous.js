@@ -65,7 +65,7 @@ function periksaDataPasien(nomorIdPasien){ //penulisan function bisa
     })
 }
 //Cara menggunakan Promise yang memiliki parameter
-periksaDataPasien(5).then(function(data){  //input no id disini
+periksaDataPasien(5).then(function(data){  //input no id
     console.log(data)
 }).catch(function(err){
     console.log(err)
