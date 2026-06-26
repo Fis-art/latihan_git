@@ -125,6 +125,13 @@
 // }
 // hello(2)
 
+//latihan
+
+// var cariPasien = function(nomorIdPasien) {       // titik patokan
+//   return dataPasien.find(function(x) {           // titik patokan
+//     return x.id === nomorIdPasien; }); };        // titik patokan
+
+
 function doAsync(nomorIdPasien){
      return new Promise( function (resolve, reject){
     var dataPasien = [
