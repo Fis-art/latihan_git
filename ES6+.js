@@ -185,5 +185,12 @@
 //Spread Operator digunakan untuk membagi elemen array atau properti pada objek, 
 //sehingga elemen array dapat ditambahkan/dimasukan ke dalam array baru
 
-let fruit = ["strawberry","mangga","apel", "jeruk"]
+let fruit = ["strawberry","mangga","apel"]
 
+// fruit.unshift("jeruk")  // menambahkan object di depan secara biasa/dasar
+// fruit.push("durian")    // menambahkan object di belakang secara biasa/dasar
+
+// console.log(fruit)
+
+fruit = ["langsat",...fruit,"rambutan"] //sprad operator ditaruh ditengah u/ menambahkan depan-belakang
+console.log(fruit)
