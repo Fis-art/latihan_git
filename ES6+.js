@@ -158,13 +158,25 @@
 //Rest Parameter ini berguna untuk menggabungkan semua paramater pada function ke dalam array. 
 //Dengan menggunakan Rest Parameter ini dapat membantu kita mendefinisikan function dengan rapi serta memberikan parameter yang tidak terbatas pada sebuah function.
 
-let [num1, , , , lastnum] = [1,5,6,7,8]
+// let [num1, , , , lastnum] = [1,5,6,7,8]
 
-let footballers = ["Messi", "Ronaldo", "Neymar","Halland", "Mbappe"]
-let [foot1, foot2, ...restFoots] = footballers
+// let footballers = ["Messi", "Ronaldo", "Neymar","Halland", "Mbappe"]
+// let [foot1, foot2, ...restFoots] = footballers //parameter rest wajib berada di paling belakang index
 
-console.log(foot1)
-console.log(foot2)
-console.log(restFoots)      //rest parameter
-console.log(restFoots[1])   //select rest parameter
+// console.log(foot1)
+// console.log(foot2)
+// console.log(restFoots)      //rest parameter
+// console.log(restFoots[1])   //select rest parameter
 
+let names = "Taufiqurrahman"
+let person = {
+    //key : value
+    nama   : names,    //Penggunaan object biasa
+    tinggi : 160,
+    umur   : 24
+}
+
+let {nama,...restbio} = person     //Enhanced object literals
+
+console.log(nama)
+console.log(restbio)
