@@ -96,5 +96,8 @@ text1 = "hai"
 text2 = "namaku"
 text3 = "taufiq"
 
+//Template Literal
+//template literal atau biasa di sebut template string merupakan fitur ES6 yang memungkinkan kita menyusun string dengan rapi dengan menggunakan tanda etik terbalik dan ${variabelnya}.
+
 console.log(text1+", "+text2+" "+text3)
-console.log('${text1}, ${text2}, {text}')
+console.log(`${text1}, ${text2}, ${text3}`)
