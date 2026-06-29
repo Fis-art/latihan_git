@@ -132,29 +132,29 @@
 //     return x.id === nomorIdPasien; }); };        // titik patokan
 
 
-function doAsync(nomorIdPasien){
-     return new Promise( function (resolve, reject){
-    var dataPasien = [
-        {id : 1, nama: "John", jenisKelamin : "Laki-Laki"},
-        {id : 2, nama: "Michael", jenisKelamin : "Laki-Laki"},
-        {id : 3, nama: "Sarah", jenisKelamin : "Perempuan"},
-        {id : 4, nama: "Frank", jenisKelamin : "Laki-Laki"},
-    ]
-        var pasien = dataPasien.find(x=> x.id === nomorIdPasien)           
-        if (pasien === undefined){
-            reject("data pasien tidak ada")
-        }else {
-            resolve(pasien)
-        }
-    })
-}
+// function doAsync(nomorIdPasien){
+//      return new Promise( function (resolve, reject){
+//     var dataPasien = [
+//         {id : 1, nama: "John", jenisKelamin : "Laki-Laki"},
+//         {id : 2, nama: "Michael", jenisKelamin : "Laki-Laki"},
+//         {id : 3, nama: "Sarah", jenisKelamin : "Perempuan"},
+//         {id : 4, nama: "Frank", jenisKelamin : "Laki-Laki"},
+//     ]
+//         var pasien = dataPasien.find(x=> x.id === nomorIdPasien)           
+//         if (pasien === undefined){
+//             reject("data pasien tidak ada")
+//         }else {
+//             resolve(pasien)
+//         }
+//     })
+// }
 
-async function hello (nomorIdPasien) {
-    try{
-    var result = await doAsync(nomorIdPasien)
-    console.log(result)
-    } catch(err){
-        console.log(err)
-    }
-}
-hello(0)
+// async function hello (nomorIdPasien) {
+//     try{
+//     var result = await doAsync(nomorIdPasien)
+//     console.log(result)
+//     } catch(err){
+//         console.log(err)
+//     }
+// }
+// hello(0)
