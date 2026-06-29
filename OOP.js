@@ -76,33 +76,33 @@ class car {
 
 //Contoh Method pada Javascript
 
-class Car {
-    constructor(brand) {
-        this.carname = brand;
-    }
-    present() {
-        return "I Have A " + this.carname;
-    }}
-mycar = new Car("Mustang")
-console.log(mycar.present()) //
+// class Car {
+//     constructor(brand) {
+//         this.carname = brand;
+//     }
+//     present() {
+//         return "I Have A " + this.carname;
+//     }}
+// mycar = new Car("Mustang")
+// console.log(mycar.present()) //
 
 
-class Car2 {
-    constructor(brand) {
-        this.carname = brand;
-    }
-    present(x) {
-        return x + ", I Have A " + this.carname;
-    }}
-mycar = new Car2("Lamborghini")
-mycar2 = new Car2("Ferrari")
-console.log(mycar.present("halo")) // 
-console.log(mycar2.present("halo")) // 
+// class Car2 {
+//     constructor(brand) {
+//         this.carname = brand;
+//     }
+//     present(x) {
+//         return x + ", I Have A " + this.carname;
+//     }}
+// mycar = new Car2("Lamborghini")
+// mycar2 = new Car2("Ferrari")
+// console.log(mycar.present("Halo")) // 
+// console.log(mycar2.present("Halo")) // 
 
 //Getters dan Setters
-class Car5 {
+class Car3 {
     constructor(brand) {
-        this._carname = brand;
+        this.carname = brand;
     }
     get carname() {
         return this._carname;
@@ -111,22 +111,22 @@ class Car5 {
         this._carname = x;
     }
 }
-mycar = new Car5 ("Ferrari");
-mycar.carname = "Porsche"; // memanggik setter, mengubah ford menjadi volvo
+mycar = new Car3 ("Ferrari");
+mycar.carname = "Porsche"; // memanggik setter, mengubah Ferrari menjadi Porsche
 console.log(mycar.carname); //
 
 //Static Method
-class Car6 {
+class Car4 {
     constructor(brand) {
         this.carname = brand;
     }
     static hello() {
-        return "Hello! !";
+        return "Hello! I Have a new car!";
     }
 }
-mycar = new Car6 ("Ultima");
+mycar = new Car4 ("Ultima");
 // memanggil 'hello()' pada class  Car :
-console.log(Car6.hello());
+console.log(Car4.hello());
 
 //Inheritance
 //Inheritance merupakan konsep pewarisan dimana sebuah class dapat mewarisi method maupun property dari class parentnya.
