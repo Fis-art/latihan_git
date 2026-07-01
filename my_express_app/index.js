@@ -4,6 +4,7 @@ const port = 3000;
 
 //Basic Routing Express.js
 
+
 let mahasiswa = ['adit', 'rendra', 'desta', 'taufik', 'andra']
 let objectMahasiswa = [
   {
@@ -36,8 +37,6 @@ const getMahasiswa = (req, res) => {
   res.send("berikut daftar mahasiswa: " + result)};
   
 
-
-  //Handler
   const getobjectMahasiswa = (req, res) => {
     let {nama} = req.query;
     if (nama == undefined) {
@@ -76,6 +75,13 @@ if (mahasiswa) {
 app.get('/', (req, res) => {
   res.send('HALO SELAMAT DATANG!');
 });
+
+//app.method(path, handler)
+//● app merupakan instance dari express
+// ● METHOD diisi dengan HTTP Method
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
+// ● PATH diisi dengan path dari route yang dibuat
+// ● HANDLER diisi function yang harus memiliki dua parameter request dan response
 
 app.get('/objectmahasiswa/:nim', getMahasiswaByNim); //menambahkan parameter pada routing express.js
 app.get('/mahasiswa', getMahasiswa);
