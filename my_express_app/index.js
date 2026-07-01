@@ -3,73 +3,94 @@ const app = express();
 const port = 3000;
 
 let movies = [
-{id: 1, title: "Spider-Man", year: 2002},
-{id: 2, title: "John Wick", year: 2014},
-{id: 3, title: "The Avengers", year: 2012},
-{id: 4, title: "Logan", year: 2017},
+    {
+        id : 1,
+        title : "Spider-Man",
+        year : 2002
+    },
+    {
+        id : 2,
+        title : "John Wick",
+        year : 2014
+    },
+    {
+        id : 3,
+        title : "The Avengers",
+        year : 2012
+    },
+    {
+        id : 4,
+        title : "Logan",
+        year : 2014
+    },
 ]
 
-const getMovies = (req, res) => {
-  let result = ""
-  movies.forEach(function(item, index){
-    result += `<h1> ${index +1}. ${item.title} (${item.year})</h1>`
-  })
-  res.send("berikut daftar film: " + result)};
-  
-
-  const getobjectMoviesById = (req, res) => {
-    let {id} = req.query;
-    if (id == undefined) {
-    id = "";
-    }
-    let result = ""
-    // let counter = 1; // Membuat penomoran yang berurutan untuk hasil pencarian
-
-    movies.forEach((item, index) => {
-      // PERBAIKAN: Gunakan .toLowerCase() tanpa memasukkan parameter 'nama' di dalamnya
-      if (item.id == id) {
-        result += `<h1>${index +1}. Title : ${item.title} Year : ${item.year}</h1>`
-        // counter++; // Menambahkan counter untuk setiap hasil pencarian yang ditemukan
-      }
-    });
-    res.send(result || "<h2>Data film tidak ditemukan</h2>");}
-    
-  
-  
-  const getMahasiswaByNim = (req, res) => {
-    const nim = req.params.nim;
-    const mahasiswa = objectMahasiswa.find((item) => {
-      return item.nim === Number(nim);
-    });
-if (mahasiswa) {
-
-    res.send(`<h1>Nama: ${mahasiswa.nama}, NIM: ${mahasiswa.nim}</h1>`);
-
-  } 
-  else {
-    res.status(404).send('<h1>Mahasiswa tidak ditemukan</h1>');
+const getMovie = (req, res) => {
+  let {title} = req.query;
+  if (title == undefined) {
+    title = ""
   }
+  let result = movies.filter((item, index) => {
+    return item.title.toLowerCase().includes(title.toLowerCase())
+  })
+  res.send(result);
+
 };
 
+const getObjectMovieId = (req, res) => {
+  let {id} = req.params;
+  let hasil = movies.find((item) => {
+   return item.id === Number(id)
+  })
+  if(!hasil) {
+    return res.send("<h1>Movie Tidak Ditemukan</hi>")
+  }
+
+  res.send(`<h1>Title: ${hasil.title} <br> Year: ${hasil.year}</h1>`)
+
+}
+// penambahan route untuk API
+const getMovieApi = (req, res) => {
+  let {title} = req.query;
+  if (title == undefined) {
+    title = ""
+  }
+  let result = movies.filter((item, index) => {
+    return item.title.toLowerCase().includes(title.toLowerCase())
+  })
+  // let newResult = ""
+  // result.forEach(function(item, index){
+  //   newResult += `<h1>  ${item.id} ${item. title} ${item.year}</h1>`
+  // })
+  res.json(result);
+
+};
+// penambahan route untuk API
+const getObjectMovieIdApi = (req, res) => {
+  let {id} = req.params;
+  let hasil = movies.find((item) => {
+   return item.id === Number(id)
+  })
+
+  if(!hasil) {
+    return res.json({ message: "Movie Tidak Ditemukan" })
+  }
+
+  res.json(hasil);
+
+}
+
+app.get('/daftarmovie', getMovie)
+app.get('/daftarmovie/:id', getObjectMovieId)
+
+
+app.get('/API/daftarmovie', getMovieApi)
+app.get('/API/daftarmovie/:id', getObjectMovieIdApi)
 
 app.get('/', (req, res) => {
-  res.send('HALO SELAMAT DATANG!');
+  res.send('Hello World!');
 });
 
-
-app.get('/', (req, res) => {
-  res.send('HALO SELAMAT DATANG!');
-});
-
-app.get('/', (req, res) => {
-  res.send('selamat datang !');
-});
-
-app.get('/', (req, res) => {
-  res.send('selamat datang !');
-});
-
-app.get('/movies', getMovies);
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

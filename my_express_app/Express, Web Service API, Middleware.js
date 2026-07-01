@@ -29,4 +29,4 @@
 // Kinerja website yang dihasilkan jadi lebih baik, mengingat ringannya framework
 
 // Kekurangan
-// Pilihan metode pengembangan yang berbeda-beda, sehingga tidak ada standarbaku
+// Pilihan metode pengembangan yang berbeda-beda, sehingga tidak ada standar baku
