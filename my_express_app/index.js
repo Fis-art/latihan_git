@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+//Basic Routing Express.js
+
 let mahasiswa = ['adit', 'debby', 'heldi', 'taufik', 'andra', 'desta']
 let objectMahasiswa = [
   {
@@ -18,21 +20,27 @@ let objectMahasiswa = [
   }
 ]
 
+//menambahkan query pada routing express.js
 const getobjectMahasiswa = (req, res) => {
+  let {nama} = req.query
   let result = ""
+  console.log(nama)
+  
   objectMahasiswa.forEach((item, index) => {
-    result += `<h1>${index +1}. Nama :${item.nama} NIM: ${item.nim}</h1>`
+    if (item.nama == nama) {
+      result += `<h1>${index +1}. Nama :${item.nama} NIM: ${item.nim}</h1>`
+    }
   })
-  res.send("berikut data mahasiswa: " + result);
-}
+  res.send("berikut data mahasiswa: " + result);}
+
+
 
 const getMahasiswa = (req, res) => {
   let result = ""
   mahasiswa.forEach(function(item, index){
     result += `<h1> ${index +1}. ${item}</h1>`
   })
-  res.send("berikut daftar mahasiswa: " + result);
-};
+  res.send("berikut daftar mahasiswa: " + result)};
 
 const getMahasiswaByNim = (req, res) => {
   const nim = req.params.nim;
@@ -48,14 +56,11 @@ if (mahasiswa) {
   }
 };
 
-
-
-
 app.get('/', (req, res) => {
-  res.send('HALO SELAMAT DATANG BROO');
+  res.send('HALO SELAMAT DATANG!');
 });
 
-app.get('/objectmahasiswa/:nim', getMahasiswaByNim);
+app.get('/objectmahasiswa/:nim', getMahasiswaByNim); //menambahkan parameter pada routing express.js
 app.get('/mahasiswa', getMahasiswa);
 app.get('/objectmahasiswa', getobjectMahasiswa)
 
