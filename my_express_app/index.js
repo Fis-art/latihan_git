@@ -4,36 +4,29 @@ const port = 3000;
 
 //Basic Routing Express.js
 
-let mahasiswa = ['adit', 'debby', 'heldi', 'taufik', 'andra', 'desta']
+let mahasiswa = ['adit', 'rendra', 'desta', 'taufik', 'andra']
 let objectMahasiswa = [
   {
     nim : 223344,
-    nama : "Aditya Saputra",
-  },
-  {
-    nim : 235671,
-    nama : "Debby Afrizal",
+    nama : "Muhammad Desta Greddy Aulia Rahman",
   },
   {
     nim : 233121,
-    nama : "Heldi Saputra"
+    nama : "Daffa Seta Az-Zahra Resqiumah",
+  },
+  {
+    nim : 235671,
+    nama : "Muhammad Aditya Dwi Saputra",
+  },
+  {
+    nim : 233511,
+    nama : "Muhammad Rendra Fachrizal"
+  },
+  {
+    nim : 233511,
+    nama : "Ayudha Kusuma Rahmadhani"
   }
 ]
-
-//menambahkan query pada routing express.js
-const getobjectMahasiswa = (req, res) => {
-  let {nama} = req.query
-  let result = ""
-  console.log(nama)
-  
-  objectMahasiswa.forEach((item, index) => {
-    if (item.nama == nama) {
-      result += `<h1>${index +1}. Nama :${item.nama} NIM: ${item.nim}</h1>`
-    }
-  })
-  res.send("berikut data mahasiswa: " + result);}
-
-
 
 const getMahasiswa = (req, res) => {
   let result = ""
@@ -41,20 +34,44 @@ const getMahasiswa = (req, res) => {
     result += `<h1> ${index +1}. ${item}</h1>`
   })
   res.send("berikut daftar mahasiswa: " + result)};
+  
 
-const getMahasiswaByNim = (req, res) => {
-  const nim = req.params.nim;
-  const mahasiswa = objectMahasiswa.find((item) => {
-    return item.nim === Number(nim);
-  });
+
+  //Handler
+  const getobjectMahasiswa = (req, res) => {
+    let {nama} = req.query;
+    if (nama == undefined) {
+    nama = "";
+    }
+    let result = ""
+    // let counter = 1; // Membuat penomoran yang berurutan untuk hasil pencarian
+
+    objectMahasiswa.forEach((item, index) => {
+      // PERBAIKAN: Gunakan .toLowerCase() tanpa memasukkan parameter 'nama' di dalamnya
+      if (item.nama.toLocaleLowerCase().includes(nama.toLocaleLowerCase())) {
+        result += `<h1>${index +1}. Nama : ${item.nama} NIM : ${item.nim}</h1>`
+        // counter++; // Menambahkan counter untuk setiap hasil pencarian yang ditemukan
+      }
+    });
+    res.send(result || "<h2>Data mahasiswa tidak ditemukan</h2>");}
+    
+  
+  
+  const getMahasiswaByNim = (req, res) => {
+    const nim = req.params.nim;
+    const mahasiswa = objectMahasiswa.find((item) => {
+      return item.nim === Number(nim);
+    });
 if (mahasiswa) {
 
     res.send(`<h1>Nama: ${mahasiswa.nama}, NIM: ${mahasiswa.nim}</h1>`);
 
-  } else {
+  } 
+  else {
     res.status(404).send('<h1>Mahasiswa tidak ditemukan</h1>');
   }
 };
+
 
 app.get('/', (req, res) => {
   res.send('HALO SELAMAT DATANG!');
