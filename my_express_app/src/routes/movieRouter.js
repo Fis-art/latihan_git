@@ -9,13 +9,15 @@ const {
     tokenMiddleware
 } =     require('../controllers/movieController');
 
-movieRouter.get('/', getMovie);
-movieRouter.get('/:id', getMovieById);
-movieRouter.get('/api', getMovieApi);
-movieRouter.get('/api/:id', getMovieByIdApi);
+movieRouter.use(loggerMiddleware);
+movieRouter.use(tokenMiddleware);
+movieRouter.get('/movies', getMovie);
+movieRouter.get('/movies:id', getMovieById);
+movieRouter.get('/movies', getMovieApi);
+movieRouter.get('/movies/:id', getMovieByIdApi);
 
-movieRouter.get('/api', loggerMiddleware);
-movieRouter.get('/api', tokenMiddleware);
+// movieRouter.get('/api', loggerMiddleware);
+// movieRouter.get('/api', tokenMiddleware);
 
 module.exports = movieRouter;
 
