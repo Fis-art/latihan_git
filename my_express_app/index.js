@@ -21,6 +21,7 @@ const loggerMiddleware = (req, res, next) => {
     });
 
     console.log("==================================");
+    console.log("Selamat datang Taufiq");
     console.log("Waktu  :", waktu);
     console.log("Halaman yang diakses :", req.url);
     console.log("=================================");
