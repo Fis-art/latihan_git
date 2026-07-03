@@ -43,24 +43,36 @@ const tokenMiddleware = (req, res, next) => {
 }
 
 const getMovie = (req, res) => {
-    let { title } = req.query
-    if(title === undefined){
-        title = ""
+
+    let { title, year } = req.query;
+
+    if (title === undefined) {
+        title = "";
     }
-    let result = ""
-    movies.forEach((item,index) => {
-        if(item.title.toLowerCase().includes(title.toLowerCase())){
-            result += `<H1>${index+1}. ${item.title}. Tahun Rilis : ${item.year}</H1>`
+
+    if (year === undefined) {
+        year = "";
+    }
+
+    let result = "";
+
+    movies.forEach((item, index) => {
+
+        if (
+            item.title.toLowerCase().includes(title.toLowerCase()) &&
+            item.year === Number(year)
+        ) {
+            result += `<h1>${index + 1}. ${item.title}. Tahun Rilis : ${item.year}</h1>`;
         }
-    })
-    if(result === ""){
-        return res.send("<h1>Movie tidak ditemukan</h1>")
+
+    });
+
+    if (result === "") {
+        return res.send("<h1>Movie tidak ditemukan</h1>");
     }
-    res.send(result)
+
+    res.send(result);
 }
-
-
-
 
 const getMovieByYear = (req, res) => {
     let { year } = req.query
@@ -95,13 +107,22 @@ const getMovieById = (req, res) => {
 }
 
 const getMovieApi = (req, res) => {
-    let { title } = req.query
+
+    let { title, year } = req.query
+
     if(title === undefined){
         title = ""
     }
+
+    if(year === undefined){
+        year = ""
+    }
+
     let result = movies.filter((item) => {
-        return item.title.toLowerCase().includes(title.toLowerCase())
+        return item.title.toLowerCase().includes(title.toLowerCase()) &&
+               item.year === Number(year)
     })
+
     res.json(result)
 }
 
