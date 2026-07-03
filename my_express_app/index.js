@@ -47,32 +47,54 @@ const getMovie = (req, res) => {
 
     let { title, year } = req.query;
 
-    if (title === undefined) {
-        title = "";
-    }
+    if (title === undefined) title = "";
+    if (year === undefined) year = "";
 
-    if (year === undefined) {
-        year = "";
-    }
+    // Cek title
+    let titleResult = movies.filter((item) =>
+        item.title.toLowerCase().includes(title.toLowerCase())
+    );
 
-    let result = "";
+    // Cek year
+    let yearResult = movies.filter((item) =>
+        item.year === Number(year)
+    );
 
-    movies.forEach((item, index) => {
+    // Jika keduanya diisi
+    if (title !== "" && year !== "") {
 
-        if (
-            (title === "" || item.title.toLowerCase().includes(title.toLowerCase())) &&
-            (year === "" || item.year === Number(year))
-        ) {
-            result += `<h1>${index + 1}. <br> ${item.title}. <br> Tahun Rilis : ${item.year}</h1>`;
+        if (titleResult.length === 0 && yearResult.length === 0) {
+            return res.send("<h2>Judul dan Tahun tidak ditemukan</h2>");
         }
 
-    });
+        if (titleResult.length === 0) {
+            return res.send("<h2>Judul tidak ditemukan</h2>");
+        }
 
-    if (result === "") {
-        return res.send("<h1>Movie tidak ditemukan</h1>");
+        if (yearResult.length === 0) {
+            return res.send("<h2>Tahun tidak ditemukan</h2>");
+        }
     }
 
-    res.send(result);
+    // Filter gabungan
+    let result = movies.filter((item) => {
+        return (
+            (title === "" || item.title.toLowerCase().includes(title.toLowerCase())) &&
+            (year === "" || item.year === Number(year))
+        );
+    });
+
+    if (result.length === 0) {
+        return res.send("<h2>Movie tidak ditemukan</h2>");
+    }
+
+    let html = "";
+
+    result.forEach((item, index) => {
+        html += `<h2>${index + 1}. <br> ${item.title}. <br> Tahun Rilis : ${item.year}</h2>`;
+    });
+
+    res.send(html);
 }
 
 
@@ -87,12 +109,12 @@ const getMovie = (req, res) => {
 
 //     movies.forEach((item,index) => {
 //         if(item.year === Number(year)){
-//             result += `<H1>${index+1}. ${item.title}. Tahun Rilis : ${item.year}</H1>`
+//             result += `<H2>${index+1}. ${item.title}. Tahun Rilis : ${item.year}</H2>`
 //         }
 //     })
 
 //     if(result === ""){
-//         return res.send("<h1>Tahun tidak ditemukan</h1>")
+//         return res.send("<h2>Tahun tidak ditemukan</h2>")
 //     }
 
 //     res.send(result)
@@ -110,7 +132,7 @@ const getMovieById = (req, res) => {
     const result = movies.find(item => item.id === Number(id));
 
     if (!result) {
-        return res.status(404).send("<h1>Movie tidak ditemukan</h1>");
+        return res.status(404).send("<h2>Movie tidak ditemukan</h2>");
     }
 
     let html = "";
@@ -132,31 +154,55 @@ const getMovieById = (req, res) => {
 const getMovieApi = (req, res) => {
 
     let { title, year } = req.query;
-    //Filter movie title and year
-    if (title === undefined) {
-        title = "";
-    }
-    
-    if (year === undefined) {
-        year = "";
+
+    if (title === undefined) title = "";
+    if (year === undefined) year = "";
+
+    // Cek title
+    let titleResult = movies.filter((item) =>
+        item.title.toLowerCase().includes(title.toLowerCase())
+    );
+
+    // Cek year
+    let yearResult = movies.filter((item) =>
+        item.year === Number(year)
+    );
+
+    // Jika keduanya diisi
+    if (title !== "" && year !== "") {
+
+        if (titleResult.length === 0 && yearResult.length === 0) {
+            return res.send("<h2>Judul dan Tahun tidak ditemukan</h2>");
+        }
+
+        if (titleResult.length === 0) {
+            return res.send("<h2>Judul tidak ditemukan</h2>");
+        }
+
+        if (yearResult.length === 0) {
+            return res.send("<h2>Tahun tidak ditemukan</h2>");
+        }
     }
 
+    // Filter gabungan
     let result = movies.filter((item) => {
-
         return (
             (title === "" || item.title.toLowerCase().includes(title.toLowerCase())) &&
             (year === "" || item.year === Number(year))
         );
-
     });
 
     if (result.length === 0) {
-        return res.status(404).json({
-            message: "Movie tidak ditemukan"
-        });
+        return res.send("<h2>Movie tidak ditemukan</h2>");
     }
 
-    res.json(result);
+    let html = "";
+
+    result.forEach((item, index) => {
+        html += `${index + 1}. ${item.title}. Tahun Rilis : ${item.year}`;
+    });
+
+    res.json(html);
 }
 
 
