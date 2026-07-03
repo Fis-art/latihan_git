@@ -10,9 +10,11 @@ let movies = [
 ]
 
 const loggerMiddleware = (req, res, next) => {
-    console.log("=== Ada Request ===");
-    console.log("Method :", req.method);
-    console.log("URL    :", req.url);
+    console.log("=================================");
+    console.log("Ada pengguna yang mengakses server");
+    console.log("Metode HTTP :", req.method);
+    console.log("Halaman yang diakses :", req.url);
+    console.log("=================================");
 
     next();
 }
@@ -101,3 +103,14 @@ app.get('/api/movies/:id',
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+//http://localhost:3000/movies
+//without token
+//http://localhost:3000/api/movies 
+//with token
+//http://localhost:3000/api/movies?token=12345
+//search by id
+//http://localhost:3000/api/movies/2
+//http://localhost:3000/api/movies/2?token=12345
+//search by title with token
+//http://localhost:3000/api/movies?token=12345&title=Spider
