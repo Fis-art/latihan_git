@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-let movies = [
+const movies = [
     {id: 1, title: "Spider-Man", year: 2002},
     {id: 2, title: "John Wick", year: 2014},
     {id: 3, title: "The Avengers", year: 2012},
@@ -10,10 +10,7 @@ let movies = [
 ]
 
 const loggerMiddleware = (req, res, next) => {
-    console.log("=================================");
-    console.log("Ada pengguna yang mengakses server");
-    console.log("Metode HTTP :", req.method);
-    
+
     const waktu = new Date().toLocaleString("id-ID", {
         day: "2-digit",
         month: "long",
@@ -25,9 +22,6 @@ const loggerMiddleware = (req, res, next) => {
 
     console.log("==================================");
     console.log("Waktu  :", waktu);
-    console.log("Method :", req.method);
-    console.log("URL    :", req.url);
-    console.log("==================================");
     console.log("Halaman yang diakses :", req.url);
     console.log("=================================");
 
@@ -49,51 +43,102 @@ const tokenMiddleware = (req, res, next) => {
 }
 
 const getMovie = (req, res) => {
-    let {title} = req.query
-    console.log(title)
-    if(title == undefined){
+    let { title } = req.query
+    if(title === undefined){
         title = ""
     }
     let result = ""
     movies.forEach((item,index) => {
         if(item.title.toLowerCase().includes(title.toLowerCase())){
-            result += `<H1> ${index+1}. ${item.title}. Tahun Rilis : ${item.year} </H1>`
+            result += `<H1>${index+1}. ${item.title}. Tahun Rilis : ${item.year}</H1>`
         }
     })
+    if(result === ""){
+        return res.send("<h1>Movie tidak ditemukan</h1>")
+    }
     res.send(result)
 }
 
+
+
+
+const getMovieByYear = (req, res) => {
+    let { year } = req.query
+
+    if(year === undefined){
+        year = ""
+    }
+
+    let result = ""
+
+    movies.forEach((item,index) => {
+        if(item.year === Number(year)){
+            result += `<H1>${index+1}. ${item.title}. Tahun Rilis : ${item.year}</H1>`
+        }
+    })
+
+    if(result === ""){
+        return res.send("<h1>Tahun tidak ditemukan</h1>")
+    }
+
+    res.send(result)
+}
+
+
 const getMovieById = (req, res) => {
-    const { id } = req.params;
-
+    const { id } = req.params ;
     const result = movies.find(item => item.id === Number(id));
-
     if (!result) {
         return res.status(404).send("Movie tidak ditemukan");
     }
-
     res.send(result.title);
 }
 
 const getMovieApi = (req, res) => {
-    let {title} = req.query
-    console.log(title)
-    if(title == undefined){
+    let { title } = req.query
+    if(title === undefined){
         title = ""
     }
-    let result = movies.filter((item, index) => {
+    let result = movies.filter((item) => {
         return item.title.toLowerCase().includes(title.toLowerCase())
     })
     res.json(result)
 }
 
-const getMovieByIdApi = (req, res) => {
-    let {id} = req.params
-    let result = movies.find((item) => {
-        return item.id === Number(id)
+const getMovieByYearApi = (req, res) => {
+    let { year } = req.query
+
+    if(year === undefined){
+        year = ""
+    }
+
+    let result = movies.filter((item) => {
+        return item.year === Number(year)
     })
+
+    if(result.length === 0){
+        return res.status(404).json({
+            message: "Tahun tidak ditemukan"
+        })
+    }
     res.json(result)
 }
+
+const getMovieByIdApi = (req, res) => {
+    let { id } = req.params;
+    let result = movies.find((item) => {
+        return item.id === Number(id);
+    });
+
+    if (!result) {
+        return res.status(404).json({
+            message: "Movie tidak ditemukan"
+        });
+    }
+
+    res.json(result);
+}
+//Route
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
@@ -102,6 +147,8 @@ app.get('/', (req, res) => {
 app.use(loggerMiddleware);
 
 app.get('/movies', getMovie);
+
+app.get('/movies/year', getMovieByYear);
 
 app.get('/movies/:id', getMovieById);
 
@@ -113,6 +160,11 @@ app.get('/api/movies',
 app.get('/api/movies/:id',
     tokenMiddleware,
     getMovieByIdApi
+);
+
+app.get('/api/movies/year',
+    tokenMiddleware,
+    getMovieByYearApi
 );
 
 app.listen(port, () => {
@@ -129,3 +181,7 @@ app.listen(port, () => {
 //http://localhost:3000/api/movies/2?token=12345
 //search by title with token
 //http://localhost:3000/api/movies?token=12345&title=Spider
+//search by year with token
+//http://localhost:3000/api/movies/year?token=12345&year=2020
+//search by year with token
+//http://localhost:3000/api/movies/year?token=12345&year=2014
