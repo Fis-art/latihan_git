@@ -4,5 +4,19 @@ const {
     getMovie, 
     getMovieById, 
     getMovieApi, 
-    getMovieByIdApi } = 
-    require('../controllers/movieController');
+    getMovieByIdApi,
+    loggerMiddleware,
+    tokenMiddleware
+} =     require('../controllers/movieController');
+
+movieRouter.get('/', getMovie);
+movieRouter.get('/:id', getMovieById);
+movieRouter.get('/api', getMovieApi);
+movieRouter.get('/api/:id', getMovieByIdApi);
+
+movieRouter.get('/api', loggerMiddleware);
+movieRouter.get('/api', tokenMiddleware);
+
+module.exports = movieRouter;
+
+

@@ -247,11 +247,13 @@ const getMovieByIdApi = (req, res) => {
     res.json(result);
 }
 
+//setting module
+
 module.exports = {
     loggerMiddleware,
     tokenMiddleware,
     getMovie,
     getMovieById,
     getMovieApi,
-    getMovieByIdApi  
+    getMovieByIdApi,
 };
