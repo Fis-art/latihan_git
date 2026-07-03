@@ -17,7 +17,7 @@ const getMovie = (req, res) => {
   if (format === 'json') {
     return res.json(movies);
   }
-
+  console.log(format)
   // Jika tidak, jalankan kode HTML bawaan Anda
   let result = ""
   movies.forEach(function(item, index){
@@ -35,6 +35,8 @@ const getObjectMovieId = (req, res) => {
    return item.id === Number(id)
   })
 
+  console.log(hasil)
+  // Jika film tidak ditemukan, kirimkan pesan error
   if (!hasil) {
     if (format === 'json') {
       return res.status(404).json({ pesan: "Movie Tidak Ditemukan" });
@@ -53,6 +55,9 @@ const getObjectMovieId = (req, res) => {
 
 app.get('/daftarmovie', getMovie)
 app.get('/daftarmovie/:id', getObjectMovieId)
+
+app.get('/api/daftarmovie', getMovie)
+app.get('/api/daftarmovie/:id', getObjectMovieId)
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
