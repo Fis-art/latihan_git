@@ -63,7 +63,7 @@ const getMovie = (req, res) => {
             (title === "" || item.title.toLowerCase().includes(title.toLowerCase())) &&
             (year === "" || item.year === Number(year))
         ) {
-            result += `<h1>${index + 1}. ${item.title}. Tahun Rilis : ${item.year}</h1>`;
+            result += `<h1>${index + 1}. <br> ${item.title}. <br> Tahun Rilis : ${item.year}</h1>`;
         }
 
     });
