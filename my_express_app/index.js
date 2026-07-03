@@ -13,6 +13,21 @@ const loggerMiddleware = (req, res, next) => {
     console.log("=================================");
     console.log("Ada pengguna yang mengakses server");
     console.log("Metode HTTP :", req.method);
+    
+    const waktu = new Date().toLocaleString("id-ID", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+    });
+
+    console.log("==================================");
+    console.log("Waktu  :", waktu);
+    console.log("Method :", req.method);
+    console.log("URL    :", req.url);
+    console.log("==================================");
     console.log("Halaman yang diakses :", req.url);
     console.log("=================================");
 
