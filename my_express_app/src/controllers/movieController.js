@@ -56,6 +56,20 @@ const yearMiddleware = (req, res, next) => {
     next();
 }
 
+const checkMovieIdMiddleware = (req, res, next) => {
+    const { id } = req.params;
+
+    const result = movies.find(item => item.id === Number(id));
+
+    if (result) {
+        next();
+    } else {
+        return res.status(404).json({
+            message: "Movie tidak ditemukan"
+        });
+    }
+}
+
 const getMovie = (req, res) => {
 
     let { title, year } = req.query;
@@ -211,12 +225,6 @@ const getMovieByIdApi = (req, res) => {
 
     const result = movies.find(item => item.id === Number(id));
 
-    if (!result) {
-        return res.status(404).json({
-            message: "Movie tidak ditemukan"
-        });
-    }
-
     if (title || year) {
         return res.json({
             message: "Pencarian berdasarkan ID. Parameter title dan year diabaikan.",
@@ -233,6 +241,7 @@ module.exports = {
     loggerMiddleware,
     tokenMiddleware,
     yearMiddleware,
+    checkMovieIdMiddleware,
     getMovie,
     getMovieById,
     getMovieApi,

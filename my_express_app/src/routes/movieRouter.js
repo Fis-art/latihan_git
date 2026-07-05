@@ -8,7 +8,8 @@ const {
     getMovieByIdApi,
     loggerMiddleware,
     tokenMiddleware,
-    yearMiddleware
+    yearMiddleware,
+    checkMovieIdMiddleware,
 } = require("../controllers/movieController");
 
 // HTML
@@ -17,6 +18,7 @@ movieRouter.get("/movies/:id", loggerMiddleware, getMovieById);
 
 // API
 movieRouter.get("/api/movies", loggerMiddleware, yearMiddleware, getMovieApi);
-movieRouter.get("/api/movies/:id", loggerMiddleware, tokenMiddleware, getMovieByIdApi);
+movieRouter.get("/api/movies/:id", loggerMiddleware, tokenMiddleware, checkMovieIdMiddleware, getMovieByIdApi
+);
 
 module.exports = movieRouter;
