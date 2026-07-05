@@ -40,6 +40,22 @@ const tokenMiddleware = (req, res, next) => {
 
 }
 
+const yearMiddleware = (req, res, next) => {
+    const { year } = req.query;
+
+    if (year === undefined) {
+        return next();
+    }
+
+    if (year === "") {
+        return res.status(400).json({
+            message: "parameter year wajib diisi"
+        });
+    }
+
+    next();
+}
+
 const getMovie = (req, res) => {
 
     let { title, year } = req.query;
@@ -95,32 +111,6 @@ const getMovie = (req, res) => {
 }
 
 
-// const getMovieByYear = (req, res) => {
-//     let { year } = req.query
-
-//     if(year === undefined){
-//         year = ""
-//     }
-
-//     let result = ""
-
-//     movies.forEach((item,index) => {
-//         if(item.year === Number(year)){
-//             result += `<H2>${index+1}. ${item.title}. Tahun Rilis : ${item.year}</H2>`
-//         }
-//     })
-
-//     if(result === ""){
-//         return res.send("<h2>Tahun tidak ditemukan</h2>")
-//     }
-
-//     res.send(result)
-// }
-
-// Tidak dipakai lagi karena pencarian year sudah digabung ke getMovie()
-// const getMovieByYear = ...
-
-
 const getMovieById = (req, res) => {
 
     const { id } = req.params;
@@ -165,19 +155,25 @@ const getMovieApi = (req, res) => {
         item.year === Number(year)
     );
 
-    // Jika keduanya diisi
+    // Jika title dan year sama-sama diisi
     if (title !== "" && year !== "") {
 
         if (titleResult.length === 0 && yearResult.length === 0) {
-            return res.send("<h2>Judul dan Tahun tidak ditemukan</h2>");
+            return res.status(404).json({
+                message: "Judul dan tahun tidak ditemukan"
+            });
         }
 
         if (titleResult.length === 0) {
-            return res.send("<h2>Judul tidak ditemukan</h2>");
+            return res.status(404).json({
+                message: "Judul tidak ditemukan"
+            });
         }
 
         if (yearResult.length === 0) {
-            return res.send("<h2>Tahun tidak ditemukan</h2>");
+            return res.status(404).json({
+                message: "Tahun tidak ditemukan"
+            });
         }
     }
 
@@ -190,39 +186,23 @@ const getMovieApi = (req, res) => {
     });
 
     if (result.length === 0) {
-        return res.send("<h2>Movie tidak ditemukan</h2>");
+
+    // Jika title dan year sama-sama diisi,
+    // tapi tidak ada movie yang cocok
+    if (title !== "" && year !== "") {
+        return res.status(404).json({
+            message: "Tidak ada movie yang sesuai dengan judul dan tahun rilis tersebut."
+        });
     }
 
-    let html = "";
-
-    result.forEach((item, index) => {
-        html += `${index + 1}. ${item.title}. Tahun Rilis : ${item.year}`;
+    return res.status(404).json({
+        message: "Movie tidak ditemukan"
     });
+    }
 
-    res.json(html);
+    return res.status(200).json(result);
 }
 
-
-////yearMiddleware
-
-// const getMovieByYearApi = (req, res) => {
-//     let { year } = req.query
-
-//     if(year === undefined){
-//         year = ""
-//     }
-
-//     let result = movies.filter((item) => {
-//         return item.year === Number(year)
-//     })
-
-//     if(result.length === 0){
-//         return res.status(404).json({
-//             message: "Tahun tidak ditemukan"
-//         })
-//     }
-//     res.json(result)
-// }
 
 const getMovieByIdApi = (req, res) => {
 
@@ -252,6 +232,7 @@ const getMovieByIdApi = (req, res) => {
 module.exports = {
     loggerMiddleware,
     tokenMiddleware,
+    yearMiddleware,
     getMovie,
     getMovieById,
     getMovieApi,

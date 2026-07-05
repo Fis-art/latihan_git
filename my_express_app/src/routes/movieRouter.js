@@ -1,24 +1,22 @@
-const express = require('express');
+const express = require("express");
 const movieRouter = express.Router();
-const { 
-    getMovie, 
-    getMovieById, 
-    getMovieApi, 
+
+const {
+    getMovie,
+    getMovieById,
+    getMovieApi,
     getMovieByIdApi,
     loggerMiddleware,
-    tokenMiddleware
-} =     require('../controllers/movieController');
+    tokenMiddleware,
+    yearMiddleware
+} = require("../controllers/movieController");
 
-movieRouter.use(loggerMiddleware);
-movieRouter.use(tokenMiddleware);
-movieRouter.get('/movies', getMovie);
-movieRouter.get('/movies:id', getMovieById);
-movieRouter.get('/movies', getMovieApi);
-movieRouter.get('/movies/:id', getMovieByIdApi);
+// HTML
+movieRouter.get("/movies", loggerMiddleware, getMovie);
+movieRouter.get("/movies/:id", loggerMiddleware, getMovieById);
 
-// movieRouter.get('/api', loggerMiddleware);
-// movieRouter.get('/api', tokenMiddleware);
+// API
+movieRouter.get("/api/movies", loggerMiddleware, yearMiddleware, getMovieApi);
+movieRouter.get("/api/movies/:id", loggerMiddleware, tokenMiddleware, getMovieByIdApi);
 
 module.exports = movieRouter;
-
-
