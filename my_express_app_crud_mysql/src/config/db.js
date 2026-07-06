@@ -1,11 +1,12 @@
 const mysql = require("mysql2");
+require('dotenv').config()
 
 const connectionPool = mysql.createPool({
-    host: "localhost",
-    user: "root",
-    password: "root",
-    database: "db_movies",
-    port : 3306
+    host: process.env.DB.HOST,
+    user: process.env.DB.USER,
+    password: process.env.DB.PASSWORD,
+    database: process.env.DB.DATABASE,
+    port : process.env.DB.PORT,
 });
 
 connectionPool.getConnection(function(err) {
