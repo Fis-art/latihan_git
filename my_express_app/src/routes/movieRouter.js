@@ -9,16 +9,22 @@ const {
     loggerMiddleware,
     tokenMiddleware,
     yearMiddleware,
+    timeMiddleware,
     checkMovieIdMiddleware,
 } = require("../controllers/movieController");
 
+// Logger dipasang secara global untuk semua route di dalam router ini
+movieRouter.use(loggerMiddleware);
+
 // HTML
-movieRouter.get("/movies", loggerMiddleware, getMovie);
-movieRouter.get("/movies/:id", loggerMiddleware, getMovieById);
+movieRouter.get("/movies", getMovie);
+movieRouter.get("/movies/:id", getMovieById);
 
 // API
-movieRouter.get("/api/movies", loggerMiddleware, yearMiddleware, getMovieApi);
-movieRouter.get("/api/movies/:id", loggerMiddleware, tokenMiddleware, checkMovieIdMiddleware, getMovieByIdApi
-);
+// Sesuai modul: tokenMiddleware HANYA dipasang di sini
+movieRouter.get("/api/movies", tokenMiddleware, yearMiddleware, getMovieApi);
+
+// Sesuai modul: di sini TANPA token, tapi ditambah timeMiddleware dari tugas mandiri
+movieRouter.get("/api/movies/:id", timeMiddleware, checkMovieIdMiddleware, getMovieByIdApi);
 
 module.exports = movieRouter;

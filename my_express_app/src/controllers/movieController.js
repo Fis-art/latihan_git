@@ -7,7 +7,12 @@ let movies = [
 ]
 
 const loggerMiddleware = (req, res, next) => {
-    //timeMiddleware
+  console.log(`Method: ${req.method}`)
+  console.log(`URL: ${req.url}`)
+  next()
+}
+
+const timeMiddleware = (req, res, next) => {
     const waktu = new Date().toLocaleString("id-ID", {
         day: "2-digit",
         month: "long",
@@ -27,7 +32,6 @@ const loggerMiddleware = (req, res, next) => {
 }
 
 const tokenMiddleware = (req, res, next) => {
-
     const { token } = req.query;
 
     if (token === "12345") {
@@ -37,7 +41,6 @@ const tokenMiddleware = (req, res, next) => {
             message: "Token tidak valid"
         });
     }
-
 }
 
 const yearMiddleware = (req, res, next) => {
@@ -53,6 +56,12 @@ const yearMiddleware = (req, res, next) => {
         });
     }
 
+    if (isNaN(year)) {
+        return res.status(400).json({
+            message: "Parameter year harus berupa angka"
+        });
+    }
+
     next();
 }
 
@@ -62,6 +71,7 @@ const checkMovieIdMiddleware = (req, res, next) => {
     const result = movies.find(item => item.id === Number(id));
 
     if (result) {
+        req.movieData = result; 
         next();
     } else {
         return res.status(404).json({
@@ -219,11 +229,9 @@ const getMovieApi = (req, res) => {
 
 
 const getMovieByIdApi = (req, res) => {
-
-    const { id } = req.params;
     const { title, year } = req.query;
-
-    const result = movies.find(item => item.id === Number(id));
+    
+    const result = req.movieData; 
 
     if (title || year) {
         return res.json({
@@ -239,6 +247,7 @@ const getMovieByIdApi = (req, res) => {
 
 module.exports = {
     loggerMiddleware,
+    timeMiddleware,
     tokenMiddleware,
     yearMiddleware,
     checkMovieIdMiddleware,
