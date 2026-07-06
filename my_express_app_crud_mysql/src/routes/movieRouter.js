@@ -30,13 +30,17 @@ const movieRouter = express.Router();
 const {
     readMovie, 
     readMovieById,
-    createMovie
+    createMovie,
+    updateMovie,
+    deleteMovie,
+
 
 }   = require ('../controllers/movieController.js')
 
 movieRouter.get('/movies', readMovie);
 movieRouter.get('/movies/:id' , readMovieById);
 movieRouter.post('/movies/' , createMovie);
+movieRouter.put(`/movies/` ,updateMovie);
 // movieRouter.post('/movies/:id' , createMovie);
 
 
