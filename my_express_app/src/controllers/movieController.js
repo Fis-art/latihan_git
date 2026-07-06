@@ -9,7 +9,10 @@ let movies = [
 const loggerMiddleware = (req, res, next) => {
   console.log(`Method: ${req.method}`)
   console.log(`URL: ${req.url}`)
-  next()
+  next()    
+    console.log("==================================");
+    console.log("Hai,Taufiq");
+    console.log("==================================");
 }
 
 const timeMiddleware = (req, res, next) => {
@@ -22,8 +25,7 @@ const timeMiddleware = (req, res, next) => {
         second: "2-digit"
     });
     
-    console.log("==================================");
-    console.log("Hai,Taufiq");
+    console.log("=================================");
     console.log("Waktu  :", waktu);
     console.log("Halaman yang diakses :", req.url);
     console.log("=================================");
