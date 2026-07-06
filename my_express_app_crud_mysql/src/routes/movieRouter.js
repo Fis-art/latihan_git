@@ -37,6 +37,7 @@ const {
 
 }   = require ('../controllers/movieController.js')
 
+app.use(cors(corsOptions))
 movieRouter.get('/movies', readMovie);
 movieRouter.get('/movies/:id' , readMovieById);
 movieRouter.post('/movies/' , createMovie);
