@@ -270,11 +270,50 @@ const readMovie = (req, res) => {
     connectionPool.query(queryText, (err, data) => {
         if (err) {
             console.log(err);
-            return;
+            return res.status(500).json({ message: "Server Error" });
         }
 
         res.json(data);
     });
 };
 
-module.exports = readMovie;
+const readMovieById = (req, res) => {
+    let {id} = req.params
+    let queryText = `SELECT * FROM db_movies.tb_movies WHERE id_tb_movies = ${id}`
+
+    connectionPool.query(queryText, (err, data) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).json({ message: "Server Error" });
+        }
+        res.json(data)
+    })
+};
+
+const createMovie = (req, res) => {
+    let {title, year}= req.body
+    console.log (req.body)
+    let queryText = `INSERT INTO tb_movies (title_tb_movies, year_tb_movies)
+    values ("${title}", ${year})`
+
+    connectionPool.query(queryText, (err, data) =>{
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ message: "Server Error" });
+        }
+        res.json({'message' : "berhasil"})
+    })
+};
+
+
+
+
+
+module.exports = { 
+    readMovie, 
+    readMovieById,
+    createMovie,
+
+
+
+};

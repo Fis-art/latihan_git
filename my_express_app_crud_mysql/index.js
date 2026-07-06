@@ -6,6 +6,7 @@ const port = 3000;
 //Route
 
 
+app.use(express.json())
 app.use('/api', movieRouter);
 
 app.listen(port, () => {

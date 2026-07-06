@@ -27,8 +27,17 @@ const movieRouter = express.Router();
 // // Sesuai modul: di sini TANPA token, tapi ditambah timeMiddleware dari tugas mandiri
 // movieRouter.get("/api/movies/:id", timeMiddleware, checkMovieIdMiddleware, getMovieByIdApi);
 
-const readMovie = require ('../controllers/movieController.js')
+const {
+    readMovie, 
+    readMovieById,
+    createMovie
 
-movieRouter.get('/movie' , readMovie)
+}   = require ('../controllers/movieController.js')
+
+movieRouter.get('/movies', readMovie);
+movieRouter.get('/movies/:id' , readMovieById);
+movieRouter.post('/movies/' , createMovie);
+// movieRouter.post('/movies/:id' , createMovie);
+
 
 module.exports = movieRouter;
