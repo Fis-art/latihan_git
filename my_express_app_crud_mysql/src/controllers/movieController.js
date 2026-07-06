@@ -6,6 +6,8 @@
 //     {id: 4, title: "Logan", year: 2017},
 // ]
 
+// const { connectionPool } = require("../config/db")
+
 // const loggerMiddleware = (req, res, next) => {
 //   console.log(`Method: ${req.method}`)
 //   console.log(`URL: ${req.url}`)
@@ -258,3 +260,21 @@
 //     getMovieApi,
 //     getMovieByIdApi,
 // };
+
+const connectionPool = require ("../config/db.js")
+
+
+const readMovie = (req, res) => {
+    let queryText = "SELECT * FROM db_movies.tb_movies"; 
+
+    connectionPool.query(queryText, (err, data) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        res.json(data);
+    });
+};
+
+module.exports = readMovie;

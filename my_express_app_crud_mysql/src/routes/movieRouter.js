@@ -1,30 +1,34 @@
 const express = require("express");
 const movieRouter = express.Router();
 
-const {
-    getMovie,
-    getMovieById,
-    getMovieApi,
-    getMovieByIdApi,
-    loggerMiddleware,
-    tokenMiddleware,
-    yearMiddleware,
-    timeMiddleware,
-    checkMovieIdMiddleware,
-} = require("../controllers/movieController");
+// const {
+//     getMovie,
+//     getMovieById,
+//     getMovieApi,
+//     getMovieByIdApi,
+//     loggerMiddleware,
+//     tokenMiddleware,
+//     yearMiddleware,
+//     timeMiddleware,
+//     checkMovieIdMiddleware,
+// } = require("../controllers/movieController");
 
 // Logger dipasang secara global untuk semua route di dalam router ini
-movieRouter.use(loggerMiddleware);
+// movieRouter.use(loggerMiddleware);
 
-// HTML
-movieRouter.get("/movies", getMovie);
-movieRouter.get("/movies/:id", getMovieById);
+// // HTML
+// movieRouter.get("/movies", getMovie);
+// movieRouter.get("/movies/:id", getMovieById);
 
-// API
-// Sesuai modul: tokenMiddleware HANYA dipasang di sini
-movieRouter.get("/api/movies", tokenMiddleware, yearMiddleware, getMovieApi);
+// // API
+// // Sesuai modul: tokenMiddleware HANYA dipasang di sini
+// movieRouter.get("/api/movies", tokenMiddleware, yearMiddleware, getMovieApi);
 
-// Sesuai modul: di sini TANPA token, tapi ditambah timeMiddleware dari tugas mandiri
-movieRouter.get("/api/movies/:id", timeMiddleware, checkMovieIdMiddleware, getMovieByIdApi);
+// // Sesuai modul: di sini TANPA token, tapi ditambah timeMiddleware dari tugas mandiri
+// movieRouter.get("/api/movies/:id", timeMiddleware, checkMovieIdMiddleware, getMovieByIdApi);
+
+const readMovie = require ('../controllers/movieController.js')
+
+movieRouter.get('/movie' , readMovie)
 
 module.exports = movieRouter;

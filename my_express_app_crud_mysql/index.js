@@ -5,11 +5,8 @@ const port = 3000;
 
 //Route
 
-app.get('/', (req, res) => {
-    res.send('Halo Dunia !');
-});
 
-app.use("/", movieRouter);
+app.use('/api', movieRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

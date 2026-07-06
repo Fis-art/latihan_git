@@ -1,16 +1,18 @@
-const mysql = require("mysql");
+const mysql = require("mysql2");
 
-const connection = mysql.createConnection({
+const connectionPool = mysql.createPool({
     host: "localhost",
     user: "root",
     password: "root",
-    database: "db_movies"
+    database: "db_movies",
     port : 3306
 });
-connectionPool.getconnection(function(err) {
+
+connectionPool.getConnection(function(err) {
     if (err) {
         throw err;
     }
 });
 
-module.exports = { connectionPool };
+module.exports = connectionPool;
+
