@@ -5,6 +5,7 @@ const connection = mysql.createConnection({
     user: "root",
     password: "root",
     database: "db_movies"
+    port : 3306
 });
 connectionPool.getconnection(function(err) {
     if (err) {
