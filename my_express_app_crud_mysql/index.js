@@ -5,12 +5,12 @@ const port = 3000;
 
 //Route
 
-const cors = require('cors')
-var corsOptions = {
-origin: 'http://localhost:3000',
-optionsSuccessStatus: 200
-}
-app.use(cors(corsOptions))
+// const cors = require('cors')
+// var corsOptions = {
+// origin: 'http://localhost:3000',
+// optionsSuccessStatus: 200
+// }
+// app.use(cors(corsOptions))
 
 app.use(express.json())
 app.use('/api', movieRouter);
