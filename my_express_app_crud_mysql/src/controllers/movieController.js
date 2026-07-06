@@ -78,12 +78,17 @@ const updateMovie = (req, res) => {
 
     connectionPool.query(queryText, (err) => {
         if (err) {
-            console.log(err);
-            return;
+            console.error("❌ Gagal update movie:", err.message);
+
+            return res.status(500).json({
+                success: false,
+                message: "Gagal update movie"
+            });
         }
 
-        res.json({
-            message: "Berhasil"
+        res.status(201).json({
+            success: true,
+            message: "Movie berhasil di update"
         });
     });
 };
@@ -95,16 +100,25 @@ const deleteMovie = (req, res) => {
     let queryText = `DELETE FROM tb_movies
                     WHERE id_tb_movies = ${id}`;
 
-    connectionPool.query(queryText, (err) => {
-        if (err) {
-            console.log(err);
-            return;
-        }
-
-        res.json({
-            message: "Berhasil"
+    connectionPool.query(queryText, (err, data) => {
+    if (err) {
+        console.error("❌ Gagal delete movie:", err.message);
+        return res.status(500).json({
+            success: false,
+            message: "Gagal delete movie"
         });
+    }
+    if (data.affectedRows === 0) {
+        return res.status(404).json({
+            success: false,
+            message: "Movie tidak ditemukan"
+        });
+    }
+    res.json({
+        success: true,
+        message: "Movie berhasil dihapus"
     });
+});
 };
 
 
