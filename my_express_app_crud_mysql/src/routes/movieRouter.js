@@ -40,8 +40,8 @@ const {
 movieRouter.get('/movies', readMovie);
 movieRouter.get('/movies/:id' , readMovieById);
 movieRouter.post('/movies/' , createMovie);
-movieRouter.put(`/movies/` ,updateMovie);
-// movieRouter.post('/movies/:id' , createMovie);
+movieRouter.put('/movies/:id' ,updateMovie);
+movieRouter.delete('/movies/:id' , deleteMovie);
 
 
 module.exports = movieRouter;

@@ -69,11 +69,12 @@ const createMovie = (req, res) => {
 
 const updateMovie = (req, res) => {
     let { title, year } = req.body;
+    let {id} = req.params
     console.log(req.body);
 
     let queryText = `UPDATE tb_movies
-                    SET title_tb_movie = "agak laen", year_tb_movie = 2026
-                    WHERE id_tb_movie = 11`;
+                    SET title_tb_movies = "${title}", year_tb_movies = ${year}
+                    WHERE id_tb_movies = ${id}`;
 
     connectionPool.query(queryText, (err) => {
         if (err) {
@@ -88,12 +89,11 @@ const updateMovie = (req, res) => {
 };
 
 const deleteMovie = (req, res) => {
-    let { title, year } = req.body;
+    let {id} = req.params
     console.log(req.body);
 
-    let queryText = `DELETE tb_movies
-                    SET title_tb_movie = "agak laen", year_tb_movie = 2026
-                    WHERE id_tb_movie = 11`;
+    let queryText = `DELETE FROM tb_movies
+                    WHERE id_tb_movies = ${id}`;
 
     connectionPool.query(queryText, (err) => {
         if (err) {
