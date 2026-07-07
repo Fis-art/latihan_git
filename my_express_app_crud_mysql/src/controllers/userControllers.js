@@ -9,7 +9,7 @@ const register = (req, res) => {
     let { email, nama, pass } = req.body;
 
     // Validasi input
-    if (!email || !nama || !pass) {
+    if ("${email}", "${nama}", "${Pass}") {
         return res.status(400).json({
             status: "failed",
             message: "Semua field wajib diisi."
