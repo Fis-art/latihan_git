@@ -2,6 +2,7 @@ require('dotenv').config()
 const connectionPool = require("../config/db")
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+
 const authJWT = require("../middleware/auth")
 
 const register = (req, res) => {

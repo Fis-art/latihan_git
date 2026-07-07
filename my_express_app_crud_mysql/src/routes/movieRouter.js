@@ -1,31 +1,7 @@
 const express = require("express");
 const movieRouter = express.Router();
 
-// const {
-//     getMovie,
-//     getMovieById,
-//     getMovieApi,
-//     getMovieByIdApi,
-//     loggerMiddleware,
-//     tokenMiddleware,
-//     yearMiddleware,
-//     timeMiddleware,
-//     checkMovieIdMiddleware,
-// } = require("../controllers/movieController");
 
-// Logger dipasang secara global untuk semua route di dalam router ini
-// movieRouter.use(loggerMiddleware);
-
-// // HTML
-// movieRouter.get("/movies", getMovie);
-// movieRouter.get("/movies/:id", getMovieById);
-
-// // API
-// // Sesuai modul: tokenMiddleware HANYA dipasang di sini
-// movieRouter.get("/api/movies", tokenMiddleware, yearMiddleware, getMovieApi);
-
-// // Sesuai modul: di sini TANPA token, tapi ditambah timeMiddleware dari tugas mandiri
-// movieRouter.get("/api/movies/:id", timeMiddleware, checkMovieIdMiddleware, getMovieByIdApi);
 
 const {
     readMovie, 
@@ -33,16 +9,18 @@ const {
     createMovie,
     updateMovie,
     deleteMovie,
-
-
+    
+    
 }   = require ('../controllers/movieController.js')
 
+const { authJWT } = require("../middleware/auth");
+
 // app.use(cors(corsOptions))
-movieRouter.get('/movies', readMovie);
-movieRouter.get('/movies/:id' , readMovieById);
-movieRouter.post('/movies/' , createMovie);
-movieRouter.put('/movies/:id' ,updateMovie);
-movieRouter.delete('/movies/:id' , deleteMovie);
+movieRouter.get('/movies', authJWT, readMovie);
+movieRouter.get('/movies/:id' , authJWT, readMovieById);
+movieRouter.post('/movies/' , authJWT, createMovie);
+movieRouter.put('/movies/:id' , authJWT,updateMovie);
+movieRouter.delete('/movies/:id' , authJWT, deleteMovie);
 
 
 module.exports = movieRouter;
