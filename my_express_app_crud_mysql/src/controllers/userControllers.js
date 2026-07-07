@@ -7,9 +7,8 @@ const login = (req, res) => {
 
 const register = (req, res) => {
     let { email, nama, pass } = req.body;
-    let queryText = `SELECT * FROM tb_user WHERE email_tb_user = "${email}"`;
 
-        // Validasi input
+    // Validasi input
     if (!email || !nama || !pass) {
         return res.status(400).json({
             status: "failed",
@@ -22,6 +21,7 @@ const register = (req, res) => {
         SELECT * FROM tb_user
         WHERE email_tb_user = "${email}"
     `;
+
 
     connectionPool.query(queryText, (err, result) => {
         if (err) {
