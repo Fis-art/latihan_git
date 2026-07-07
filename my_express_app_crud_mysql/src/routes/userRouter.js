@@ -1,6 +1,7 @@
 const express = require("express");
 const userRouter = express.Router();
 
+
 const { 
     login, 
     register,
@@ -10,5 +11,6 @@ const {
 
 userRouter.get('/login', login)
 userRouter.post('/register', register)
+
 
 module.exports = userRouter;

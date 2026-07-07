@@ -2,6 +2,7 @@ require('dotenv').config()
 const connectionPool = require("../config/db")
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const authJWT = require("../middleware/auth")
 
 const register = (req, res) => {
     let { email, nama, pass } = req.body;
@@ -132,13 +133,13 @@ const login = (req, res) => {
                 });
             }
 
-            // // Generate Access Token
-            // const accessToken = jwt.sign(
-            //     {
-            //         email: user.email_tb_user
-            //     },
-            //     process.env.JWT_SECRET
-            // );
+            // Generate Access Token
+            const accessToken = jwt.sign(
+                {
+                    email: user.email_tb_user
+                },
+                process.env.JWT_SECRET
+            );
             
             // Login berhasil
             return res.status(200).json({
@@ -148,9 +149,9 @@ const login = (req, res) => {
             });
 
         });
-            //jikalau taruh disini login berhasilnya tidak terpanggil
-            const accessToken = jwt.sign({email: user.email_tb_user},process.env.JWT_SECRET);
-            res.json(accessToken)
+            // //jikalau taruh disini login berhasilnya tidak terpanggil
+            // const accessToken = jwt.sign({email: user.email_tb_user},process.env.JWT_SECRET);
+            // res.json(accessToken)
 
     });
 };
