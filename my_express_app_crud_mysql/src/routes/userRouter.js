@@ -3,12 +3,12 @@ const userRouter = express.Router();
 
 const { 
     login, 
-    register 
+    register,
 
 
 } = require('../controllers/userControllers')
 
 userRouter.get('/login', login)
-userRouter.get('/register', register)
+userRouter.post('/register', register)
 
 module.exports = userRouter;
