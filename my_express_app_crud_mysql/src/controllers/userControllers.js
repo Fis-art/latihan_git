@@ -13,37 +13,48 @@ const register = (req, res) => {
         if (err) {
             console.error(err);
             return res.status(500).json({
-                status: "failed",
-                message: err.message
+                status: "Gagal",
+                message: `Gagal memeriksa data pengguna. ${err.message}`
             });
         }
-    
+
+        if (result.length > 0) {
+            return res.status(400).json({
+                status: "Gagal",
+                message: "Email sudah terdaftar."
+            });
+        }
+
+        // Hash password
         bcrypt.hash(pass, 10, (err, hashedPass) => {
             if (err) {
-                console.log(err);
+                console.error(err);
                 return res.status(500).json({
-                    status: "failed",
-                    message: err.message
+                    status: "Gagal",
+                    message: `Gagal mengenkripsi password. ${err.message}`
                 });
             }
 
+            // Simpan data ke database
             let insertQuery = `
-                INSERT INTO tb_user (email_tb_user, nama_tb_user, pass_tb_user)
-                VALUES ("${email}", "${nama}", "${hashedPass}")
+                INSERT INTO tb_user
+                (email_tb_user, nama_tb_user, pass_tb_user)
+                VALUES
+                ("${email}", "${nama}", "${hashedPass}")
             `;
 
             connectionPool.query(insertQuery, (err, result) => {
                 if (err) {
                     console.error(err);
                     return res.status(500).json({
-                        status: "failed",
-                        message: err.message
+                        status: "Gagal",
+                        message: `Gagal menyimpan data pengguna. ${err.message}`
                     });
                 }
 
                 return res.status(201).json({
                     status: "success",
-                    message: "Registrasi berhasil"
+                    message: "Registrasi berhasil."
                 });
             });
         });
