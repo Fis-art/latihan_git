@@ -9,6 +9,20 @@ const register = (req, res) => {
     let { email, nama, pass } = req.body;
     let queryText = `SELECT * FROM tb_user WHERE email_tb_user = "${email}"`;
 
+        // Validasi input
+    if (!email || !nama || !pass) {
+        return res.status(400).json({
+            status: "failed",
+            message: "Semua field wajib diisi."
+        });
+    }
+
+    // Cek apakah email sudah terdaftar
+    let queryText = `
+        SELECT * FROM tb_user
+        WHERE email_tb_user = "${email}"
+    `;
+
     connectionPool.query(queryText, (err, result) => {
         if (err) {
             console.error(err);
