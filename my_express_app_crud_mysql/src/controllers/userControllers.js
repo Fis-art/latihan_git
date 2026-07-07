@@ -1,15 +1,11 @@
 const connectionPool = require("../config/db")
 const bcrypt = require('bcrypt')
-const login = (req, res) => {
-    res.send("selamat datang di halaman login")
-
-}
 
 const register = (req, res) => {
     let { email, nama, pass } = req.body;
 
     // Validasi input
-    if ("${email}", "${nama}", "${Pass}") {
+    if (!email || !nama || !pass) {
         return res.status(400).json({
             status: "failed",
             message: "Semua field wajib diisi."
@@ -75,7 +71,26 @@ const register = (req, res) => {
     });
 };
 
+const login = (req, res) => {
+    let {email, pass} = req.body
+    let queryText = `
+        SELECT * FROM tb_user
+        WHERE email_tb_user = "${email}"
+    `;
 
+    connectionPool.query(queryText, (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({
+                status: "Gagal",
+                message: `pengguna tidak terdaftar. ${err.message}`
+            });
+        }
+    })
+    
+
+
+}
 
 
 
