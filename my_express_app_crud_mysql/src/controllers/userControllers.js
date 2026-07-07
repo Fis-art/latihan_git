@@ -72,25 +72,73 @@ const register = (req, res) => {
 };
 
 const login = (req, res) => {
-    let {email, pass} = req.body
+    let { email, pass } = req.body;
+
+    // Validasi input
+    if (!email || !pass) {
+        return res.status(400).json({
+            status: "failed",
+            message: "Email dan password wajib diisi."
+        });
+    }
+
+    // Cek email
     let queryText = `
         SELECT * FROM tb_user
         WHERE email_tb_user = "${email}"
     `;
 
     connectionPool.query(queryText, (err, result) => {
+
+        // Error database
         if (err) {
             console.error(err);
             return res.status(500).json({
-                status: "Gagal",
-                message: `pengguna tidak terdaftar. ${err.message}`
+                status: "failed",
+                message: `Gagal memeriksa data pengguna. ${err.message}`
             });
         }
-    })
-    
 
+        // Email tidak ditemukan
+        const user = result[0];
 
-}
+        if (!user) {
+            return res.status(400).json({
+                status: "failed",
+                message: "Email atau password salah."
+            });
+        }
+
+        // Bandingkan password
+        bcrypt.compare(pass, user.pass_tb_user, (err, isMatch) => {
+
+            // Error bcrypt
+            if (err) {
+                console.error(err);
+                return res.status(500).json({
+                    status: "Gagal",
+                    message: `Gagal memverifikasi password. ${err.message}`
+                });
+            }
+
+            // Password salah
+            if (!isMatch) {
+                return res.status(400).json({
+                    status: "Gagal",
+                    message: "Email atau password salah."
+                });
+            }
+
+            // Login berhasil
+            return res.status(200).json({
+                status: "success",
+                message: "Login berhasil."
+            });
+
+        });
+
+    });
+};
 
 
 
