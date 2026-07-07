@@ -63,7 +63,7 @@ const register = (req, res) => {
                 }
 
                 return res.status(201).json({
-                    status: "success",
+                    status: "Sukses",
                     message: "Registrasi berhasil."
                 });
             });
@@ -77,7 +77,7 @@ const login = (req, res) => {
     // Validasi input
     if (!email || !pass) {
         return res.status(400).json({
-            status: "failed",
+            status: "Gagal",
             message: "Email dan password wajib diisi."
         });
     }
@@ -94,7 +94,7 @@ const login = (req, res) => {
         if (err) {
             console.error(err);
             return res.status(500).json({
-                status: "failed",
+                status: "Gagal",
                 message: `Gagal memeriksa data pengguna. ${err.message}`
             });
         }
@@ -104,7 +104,7 @@ const login = (req, res) => {
 
         if (!user) {
             return res.status(400).json({
-                status: "failed",
+                status: "Gagal",
                 message: "Email atau password salah."
             });
         }
@@ -131,7 +131,7 @@ const login = (req, res) => {
 
             // Login berhasil
             return res.status(200).json({
-                status: "success",
+                status: "Sukses",
                 message: "Login berhasil."
             });
 
