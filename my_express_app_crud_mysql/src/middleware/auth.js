@@ -3,16 +3,29 @@ const userRouter = require('../routes/userRouter')
 
 const authJWT = (req, res, next ) => {
     const authHeader = req.header('Authorization')
-    console.log(authHeader)
+
     
     if(!authHeader){ 
-        var err = "you're not Authorized"
         res.setHeader('WWW-Authenticate', 'bearer')
-        err.status = 401
-        return next(err)
-    }
+        
+        return res.status(401).json({
+            status : "Ditolak",
+            message : "Anda belum login nih"
 
-}
+        })
+
+    }
+        // console.log(authHeader)
+        const token = authHeader.split(" ")[1]
+        console.log(token)
+        // if()
+
+
+
+
+
+
+    }
 
 module.exports = {authJWT}
 
