@@ -1,6 +1,6 @@
 require('dotenv').config()
 const jwt = require('jsonwebtoken')
-const userRouter = require('../routes/userRouter')
+// const userRouter = require('../routes/userRouter')
 
 const authJWT = (req, res, next) => {
     const authHeader = req.header("Authorization");
