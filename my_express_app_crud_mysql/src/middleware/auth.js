@@ -3,7 +3,8 @@ const jwt = require('jsonwebtoken')
 // const userRouter = require('../routes/userRouter')
 
 const authJWT = (req, res, next) => {
-    const authHeader = req.header("Authorization");
+    const authHeader = req.header("authorization");
+    // console.log(req.headers);
 
     if (!authHeader) {
         res.setHeader("WWW-Authenticate", "bearer");

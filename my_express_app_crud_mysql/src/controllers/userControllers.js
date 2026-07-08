@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 // const authJWT = require("../middleware/auth")
 
 const register = (req, res) => {
+
     let { email, nama, pass } = req.body;
 
     // Validasi input
@@ -76,6 +77,7 @@ const register = (req, res) => {
 };
 
 const login = (req, res) => {
+
     let { email, pass } = req.body;
 
     // Validasi input

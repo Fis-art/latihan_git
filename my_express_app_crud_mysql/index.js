@@ -15,7 +15,12 @@ const port = 3000;
 
 app.use(express.json())
 app.use('/', movieRouter);
-app.use('/' , userRouter)
+app.use('/' , userRouter);
+
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('./swagger-output.json')
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+
 
 
 app.listen(port, () => {
