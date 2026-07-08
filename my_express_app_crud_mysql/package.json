@@ -17,13 +17,17 @@
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "mysql": "^2.18.1",
-    "mysql2": "^3.22.5"
+    "mysql2": "^3.22.5",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.14",
+    "swagger-autogen": "^2.23.7"
   },
   "allowScripts": {
     "jsonwebtoken@9.0.3": true,
-    "bcrypt@6.0.0": true
+    "bcrypt@6.0.0": true,
+    "swagger-ui-express@5.0.1": true,
+    "swagger-autogen@2.23.7": true
   }
 }
