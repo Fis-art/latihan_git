@@ -38,13 +38,18 @@ const doc = {
         securitySchemes: {
             bearerAuth: {
                 type: "http",
-                scheme: "bearer",
-                bearerFormat: "JWT" //optional
+                scheme: "bearer"
             }
         }
-    }
+    },
 
-};
+
+    security: [
+        {
+            bearerAuth: []
+        }
+    ]
+}
 
 // ============================
 // Lokasi file output Swagger

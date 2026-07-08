@@ -14,8 +14,8 @@ const port = 3000;
 // app.use(cors(corsOptions))
 
 app.use(express.json())
-app.use('/', movieRouter);
 app.use('/' , userRouter);
+app.use('/', movieRouter);
 
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./swagger-output.json')

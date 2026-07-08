@@ -11,7 +11,7 @@ const authJWT = (req, res, next) => {
 
         return res.status(401).json({
             status: "Ditolak",
-            message: "Anda belum login nih"
+            message: "Input token di Authorize dulu di kanan atas, ingat!! login buat ambil token"
         });
     }
 

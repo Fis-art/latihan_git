@@ -16,42 +16,11 @@ const {
 const { authJWT } = require("../middleware/auth");
 
 // app.use(cors(corsOptions))
-movieRouter.get('/movies', 
-    /*  
-    #swagger.security = [{
-        "bearerAuth": []
-    }]
-*/
-    
-    authJWT, readMovie);
-movieRouter.get('/movies/:id' , 
-    /*  
-    #swagger.security = [{
-        "bearerAuth": []
-    }]
-*/
-    authJWT, readMovieById);
-movieRouter.post('/movies/' , 
-    /*  
-    #swagger.security = [{
-        "bearerAuth": []
-    }]
-*/  
-    authJWT, createMovie);
-movieRouter.put('/movies/:id' , 
-    /*  
-    #swagger.security = [{
-        "bearerAuth": []
-    }]
-*/
-    authJWT,updateMovie);
-movieRouter.delete('/movies/:id' , 
-    /*  
-    #swagger.security = [{
-        "bearerAuth": []
-    }]
-*/
-    authJWT, deleteMovie);
+movieRouter.get('/movies', authJWT, readMovie);
+movieRouter.get('/movies/:id' , authJWT, readMovieById);
+movieRouter.post('/movies/' , authJWT, createMovie);
+movieRouter.put('/movies/:id' , authJWT,updateMovie);
+movieRouter.delete('/movies/:id' , authJWT, deleteMovie);
 
 
 
