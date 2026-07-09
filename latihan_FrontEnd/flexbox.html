@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flexbox</title>
+    <style>
+        *{
+        font-size: 72px;
+        border: 1px solid red;
+        }
+        div {
+        /* border: 1px solid red;     */
+        padding: 100px;
+        }
+        div:hover {
+        background-color: blue;
+        /* padding: 250px ; */
+        }
+        nav {
+        display: flex;
+        border: 1px solid red;
+        justify-content: center;
+        justify-content: space-around ;
+        height: 200px;
+        align-items: flex-end;
+        /* padding-left: 100px; */
+        }
+        a{
+            background-color: rgb(11, 208, 243);
+
+        }
+        input:hover{
+        background-color: blue;
+        a:active{
+            background-color: rgb(224, 16, 61);
+            }
+        a:link{
+            background-color: rgb(0, 0, 0);
+            }
+
+        }
+    </style>
+
+
+</head>
+<body>
+        <nav class="container">
+    <div>Home</div>
+    <div>Search</div>
+    <div>Logout</div>
+          </nav>
+        <input type="text" value="username">
+    <a href="./index.html"> Home</a>
+    <a href="http://www.youtube.com"> Youtube</a>
+    
+</body>
+</html>
