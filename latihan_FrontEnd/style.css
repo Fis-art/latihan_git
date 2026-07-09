@@ -1,0 +1,36 @@
+    p
+    {
+        font-family : Helvetica ;
+        line-height : 2.00 em;
+        font-size : 20px;
+        color: orange;
+        background-color: forestgreen;
+
+    }
+    .p2
+    {
+        font-family : Helvetica ;
+        line-height : 2.00 em;
+        font-size : 20px;
+        color: rgb(211, 16, 33);
+        background-color: rgb(136, 104, 223);
+
+    }
+
+    h1 {
+        font-family : sans;
+        color: rgb(9, 129, 63);
+    }
+
+    img {
+        width: 2000px ;
+    }
+
+    .divv {
+        font-family : Helvetica ;
+        line-height : 2.00 em;
+        font-size : 20px;
+        color: rgb(182, 14, 28);
+        background-color: rgb(139, 76, 34);
+    }
+
