@@ -1,0 +1,27 @@
+.Kontainer {
+    border: 5px solid rgb(0, 0, 0);
+    border-radius: 6px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 6px ;
+    padding: 6px;
+    
+}
+.card {
+    border: 5px solid rgb(255, 0, 0);
+    border-radius: 10px;
+
+    
+
+}
+
+
+.nama {
+    color: blue;
+}
+.job {
+    color: blueviolet;
+}
+.age {
+    color: brown;
+}
