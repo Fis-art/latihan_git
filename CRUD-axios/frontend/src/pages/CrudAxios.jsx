@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 const CrudAxios = () => {
   const [Data, setData] = useState([]);
-  const [editingMovie, setEditingMovie] = useState(null);
+  const [input, setInput] = useState({movie_Title:"", Movie_Year:""});
 
   const fetchData = () => {
     axios.get("http://localhost:3000/api/movies").then((res) => {
@@ -15,68 +15,58 @@ const CrudAxios = () => {
     fetchData();
   }, []);
 
-  // ✅ Simpan movie yang mau diedit ke state
-  const handleEdit = (movie) => {
-    setEditingMovie({ ...movie });
+  // ✅ submit wajib
+  const handleSubmnit = async (event) => {
+    event.preventDefault();
+    try {
+        await axios.post("http://localhost:3000/api/movies", {
+          title: input.movie_Title,
+          year: input.Movie_Year,
+        });
+    } catch (error) {
+        console.error(error)
+    }
+
   };
 
-  // ✅ Update field form saat user ngetik
-  const handleEditChange = (e) => {
-    setEditingMovie({ ...editingMovie, [e.target.name]: e.target.value });
-  };
+  const handleChange = (event) => {
+    let { value,name } = event.target;
+    setInput({...input, [nama]:value})
 
-  // ✅ Kirim PUT request
-  const handleEditSubmit = () => {
-    axios
-      .put(`http://localhost:3000/api/movies/${editingMovie.id_tb_movies}`, {
-        title_tb_movies: editingMovie.title_tb_movies,
-        year_tb_movies: editingMovie.year_tb_movies,
-      })
-      .then(() => {
-        // Update state lokal biar nggak perlu fetch ulang
-        setData((prevData) =>
-          prevData.map((movie) =>
-            movie.id_tb_movies === editingMovie.id_tb_movies
-              ? editingMovie
-              : movie,
-          ),
-        );
-        setEditingMovie(null); // Tutup form
-      });
-  };
 
-  const handleDelete = (id) => {
-    axios.delete(`http://localhost:3000/api/movies/${id}`).then(() => {
-      setData((prevData) =>
-        prevData.filter((movie) => movie.id_tb_movies !== id),
-      );
-    });
   };
 
   return (
     <>
       <h1>Daftar Movie</h1>
+      <>
+        <h3>Tambahkan Movie</h3>
+        <div className="div_input_movie">
+          <form onSubmit={handleSubmnit}>
+            <label htmlFor="movie_title">Movie Title</label>
+            <input
+              type="text"
+              id="movie_title"
+              name="movie_title"
+              placeholder="input title here"
+              value=""
+              required
+            />
 
-      {/* ✅ Form edit muncul kalau editingMovie tidak null */}
-      {editingMovie && (
-        <div className="form-edit">
-          <h3>Edit Movie</h3>
-          <input
-            name="title_tb_movies"
-            value={editingMovie.title_tb_movies}
-            onChange={handleEditChange}
-            placeholder="Title"
-          />
-          <input
-            name="year_tb_movies"
-            value={editingMovie.year_tb_movies}
-            onChange={handleEditChange}
-            placeholder="Year"
-          />
-          <button onClick={handleEditSubmit}>Simpan</button>
-          <button onClick={() => setEditingMovie(null)}>Batal</button>
+            <label htmlFor="movie_year">Movie Year</label>
+            <input
+              type="number"
+              id="movie_year"
+              name="movie_year"
+              placeholder="input year here"
+              required
+              value=""
+            />
+
+            <input type="submit" value="Submit" />
+          </form>
         </div>
-      )}
+      </>
 
       <div className="div-table-movie">
         <table>
