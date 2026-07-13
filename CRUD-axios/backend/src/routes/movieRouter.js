@@ -13,14 +13,17 @@ const {
     
 }   = require ('../controllers/movieController.js')
 
-const { authJWT } = require("../middleware/auth.js");
 
 // app.use(cors(corsOptions))
-movieRouter.get('/movies', authJWT, readMovie);
-movieRouter.get('/movies/:id' , authJWT, readMovieById);
-movieRouter.post('/movies/' , authJWT, createMovie);
-movieRouter.put('/movies/:id' , authJWT,updateMovie);
-movieRouter.delete('/movies/:id' , authJWT, deleteMovie);
+movieRouter.get('/movies', readMovie);
+movieRouter.get('/api/movies', readMovie);
+movieRouter.get('/movies/:id' , readMovieById);
+movieRouter.get('/api/movies/:id' , readMovieById);
+movieRouter.post('/movies/' , createMovie);
+movieRouter.post('/api/movies/' , createMovie);
+movieRouter.put('/movies/:id' ,updateMovie);
+movieRouter.put('/api/movies/:id' ,updateMovie);
+movieRouter.delete('/api/movies/:id' , deleteMovie);
 
 
 
