@@ -21,6 +21,10 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./swagger-output.json");
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log("==================================");
+  console.log(`🚀 Server running`);
+  console.log(`📍 Local   : http://localhost:${PORT}`);
+  console.log(`📖 Swagger : http://localhost:${PORT}/api-docs`);
+  console.log("==================================");
 });
