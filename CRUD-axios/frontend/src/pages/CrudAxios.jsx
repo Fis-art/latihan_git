@@ -1,31 +1,26 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 const CrudAxios = () => {
-  const [Data, setData] = useState([]);
-  const [input, setInput] = useState({ movie_title: "", movie_year: 0 });
+  const [data, setData] = useState([]);
+  const [input, setInput] = useState({ movieTitle: "", movieYear: 0 });
 
   const fetchData = () => {
-    axios.get("http://localhost:3000/api/movies").then((res) => {
+    axios.get("http://localhost:3000/api/movie").then((res) => {
       setData(res.data);
     });
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const handleSubmnit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("http://localhost:3000/api/movies", {
-        title_tb_movies: input.movie_title,
-        year_tb_movies: input.movie_year,
+      await axios.post("http://localhost:3000/api/movie", {
+        title: input.movieTitle,
+        year: input.movieYear,
       });
       fetchData();
-      setInput({ movie_title: "", movie_year: 0 });
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -34,43 +29,49 @@ const CrudAxios = () => {
     setInput({ ...input, [name]: value });
   };
 
-  // ✅ Tambahan: fungsi delete
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/movies/${id}`);
-      setData((prevData) =>
-        prevData.filter((movie) => movie.id_tb_movies !== id),
-      );
-    } catch (error) {
-      console.error(error);
+      await axios.delete(`http://localhost:3000/api/movie/${id}`);
+      fetchData();
+    } catch (err) {
+      alert(err);
     }
   };
 
+  const handleEdit = async (id) => {
+    try {
+      let respond = await axios.get(`http://localhost:3000/api/movie/${id}`);
+      console.log(respond);
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <>
-      <h1>Daftar Movie</h1>
-
-      <div className="div_input_movie">
-        <h3>Tambahkan Movie</h3>
-        <form onSubmit={handleSubmnit}>
-          <label htmlFor="movie_title">Movie Title</label>
+      <h1>CURD AXIOS</h1>
+      <div className="div-input-movie">
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="movieTitle">Movie Title</label>
           <input
             type="text"
-            id="movie_title"
-            name="movie_title"
-            placeholder="input title here"
-            value={input.movie_title}
+            id="movieTitle"
+            name="movieTitle"
+            placeholder="Input Your Movie Title.."
             onChange={handleChange}
             required
           />
 
-          <label htmlFor="movie_year">Movie Year</label>
+          <label htmlFor="movieYear">Movie Year</label>
           <input
             type="number"
-            id="movie_year"
-            name="movie_year"
-            placeholder="input year here"
-            value={input.movie_year}
+            id="movieYear"
+            name="movieYear"
+            placeholder="Input Movie Year.."
             onChange={handleChange}
             required
           />
@@ -78,7 +79,6 @@ const CrudAxios = () => {
           <input type="submit" value="Submit" />
         </form>
       </div>
-
       <div className="div-table-movie">
         <table>
           <thead>
@@ -90,25 +90,40 @@ const CrudAxios = () => {
             </tr>
           </thead>
           <tbody>
-            {Data.map((movie, index) => (
-              <tr key={movie.id_tb_movies}>
-                <td>{index + 1}</td>
-                <td>{movie.title_tb_movies}</td>
-                <td>{movie.year_tb_movies}</td>
-                <td>
-                  <button>Edit</button>
-                  {/* ✅ Tambahan: tombol delete */}
-                  <button onClick={() => handleDelete(movie.id_tb_movies)}>
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {data.map((item, index) => {
+              return (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{item.title_tb_movie}</td>
+                  <td>{item.year_tb_movie}</td>
+                  <td>
+                    <button
+                      className="bt-del"
+                      onClick={() => {
+                        if (confirm("Apa Anda Yakin Menghapus File Ini ?")) {
+                          handleDelete(item.id_tb_movie);
+                        }
+                      }}
+                    >
+                      Delete
+                    </button>
+                    <button
+                      className="bt-edit"
+                      onClick={() => {
+                        handleEdit(item.id_table_Movie);
+                      }}
+                    >
+                      Edit
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
+      `
     </>
   );
 };
-
 export default CrudAxios;
