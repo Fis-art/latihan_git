@@ -1,5 +1,5 @@
 import axios from "axios";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const CrudAxios = () => {
   const [data, setData] = useState([]);
@@ -7,9 +7,15 @@ const CrudAxios = () => {
   const [editId, setEditId] = useState(null); // null = mode tambah, ada isi = mode edit
 
   const fetchData = () => {
-    axios.get("http://localhost:3000/api/movies").then((res) => {
-      setData(res.data);
-    });
+    axios
+      .get("http://localhost:3000/api/movies")
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.error("Gagal mengambil data:", err.message);
+        alert("Gagal terhubung ke server. Pastikan backend sudah berjalan.");
+      });
   };
 
   const handleSubmit = async (event) => {
@@ -71,7 +77,7 @@ const CrudAxios = () => {
 
   return (
     <>
-      <h1>CRUD AXIOS</h1>
+      <h1>CURD AXIOS</h1>
       <div className="div_input_movie">
         <form onSubmit={handleSubmit}>
           <label htmlFor="movieTitle">Movie Title</label>

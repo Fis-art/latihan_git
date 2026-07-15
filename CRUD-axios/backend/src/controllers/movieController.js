@@ -86,7 +86,7 @@ const updateMovie = (req, res) => {
             });
         }
 
-        res.status(201).json({
+        res.status(200).json({
             success: true,
             message: "Movie berhasil di update"
         });
