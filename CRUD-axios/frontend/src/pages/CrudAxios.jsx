@@ -6,7 +6,7 @@ const CrudAxios = () => {
   const [input, setInput] = useState({ movieTitle: "", movieYear: 0 });
 
   const fetchData = () => {
-    axios.get("http://localhost:3000/api/movie").then((res) => {
+    axios.get("http://localhost:3000/api/movies").then((res) => {
       setData(res.data);
     });
   };
@@ -14,7 +14,7 @@ const CrudAxios = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("http://localhost:3000/api/movie", {
+      await axios.post("http://localhost:3000/api/movies", {
         title: input.movieTitle,
         year: input.movieYear,
       });
@@ -31,7 +31,7 @@ const CrudAxios = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/movie/${id}`);
+      await axios.delete(`http://localhost:3000/api/movies/${id}`);
       fetchData();
     } catch (err) {
       alert(err);
@@ -40,7 +40,7 @@ const CrudAxios = () => {
 
   const handleEdit = async (id) => {
     try {
-      let respond = await axios.get(`http://localhost:3000/api/movie/${id}`);
+      let respond = await axios.get(`http://localhost:3000/api/movies/${id}`);
       console.log(respond);
     } catch (err) {
       alert(err);
