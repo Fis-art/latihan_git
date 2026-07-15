@@ -71,7 +71,7 @@ const CrudAxios = () => {
 
   return (
     <>
-      <h1>CURD AXIOS</h1>
+      <h1>CRUD AXIOS</h1>
       <div className="div_input_movie">
         <form onSubmit={handleSubmit}>
           <label htmlFor="movieTitle">Movie Title</label>
