@@ -7,9 +7,7 @@ const CrudAxios = () => {
   const [editId, setEditId] = useState(null); // null = mode tambah, ada isi = mode edit
 
   const fetchData = () => {
-    axios
-      .get("http://localhost:3000/api/movies")
-      .then((res) => {
+    axios.get("http://localhost:3000/api/movies").then((res) => {
         setData(res.data);
       })
       .catch((err) => {
