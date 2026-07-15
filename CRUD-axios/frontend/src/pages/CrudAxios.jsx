@@ -3,7 +3,8 @@ import { use, useEffect, useState } from "react";
 
 const CrudAxios = () => {
   const [data, setData] = useState([]);
-  const [input, setInput] = useState({ movieTitle: "", movieYear: 0 });
+  const [input, setInput] = useState({ movieTitle: "", movieYear: "" });
+  const [editId, setEditId] = useState(null); // null = mode tambah, ada isi = mode edit
 
   const fetchData = () => {
     axios.get("http://localhost:3000/api/movies").then((res) => {
@@ -14,10 +15,21 @@ const CrudAxios = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("http://localhost:3000/api/movies", {
-        title: input.movieTitle,
-        year: input.movieYear,
-      });
+      if (editId) {
+        // Mode edit: update movie yang sedang dipilih
+        await axios.put(`http://localhost:3000/api/movies/${editId}`, {
+          title: input.movieTitle,
+          year: input.movieYear,
+        });
+        setEditId(null);
+      } else {
+        // Mode tambah: buat movie baru seperti biasa
+        await axios.post("http://localhost:3000/api/movies", {
+          title: input.movieTitle,
+          year: input.movieYear,
+        });
+      }
+      setInput({ movieTitle: "", movieYear: "" });
       fetchData();
     } catch (err) {
       console.error(err);
@@ -38,13 +50,19 @@ const CrudAxios = () => {
     }
   };
 
-  const handleEdit = async (id) => {
-    try {
-      let respond = await axios.get(`http://localhost:3000/api/movies/${id}`);
-      console.log(respond);
-    } catch (err) {
-      alert(err);
-    }
+  const handleEdit = (item) => {
+    // Datanya sudah ada di state `data` (dari fetchData), jadi tinggal
+    // dipakai langsung untuk isi form -- tidak perlu request GET lagi.
+    setInput({
+      movieTitle: item.title_tb_movies,
+      movieYear: item.year_tb_movies,
+    });
+    setEditId(item.id_tb_movies);
+  };
+
+  const handleCancelEdit = () => {
+    setEditId(null);
+    setInput({ movieTitle: "", movieYear: "" });
   };
 
   useEffect(() => {
@@ -54,7 +72,7 @@ const CrudAxios = () => {
   return (
     <>
       <h1>CURD AXIOS</h1>
-      <div className="div-input-movie">
+      <div className="div_input_movie">
         <form onSubmit={handleSubmit}>
           <label htmlFor="movieTitle">Movie Title</label>
           <input
@@ -62,6 +80,7 @@ const CrudAxios = () => {
             id="movieTitle"
             name="movieTitle"
             placeholder="Input Your Movie Title.."
+            value={input.movieTitle}
             onChange={handleChange}
             required
           />
@@ -72,11 +91,17 @@ const CrudAxios = () => {
             id="movieYear"
             name="movieYear"
             placeholder="Input Movie Year.."
+            value={input.movieYear}
             onChange={handleChange}
             required
           />
 
-          <input type="submit" value="Submit" />
+          <input type="submit" value={editId ? "Update" : "Submit"} />
+          {editId && (
+            <button type="button" onClick={handleCancelEdit}>
+              Batal
+            </button>
+          )}
         </form>
       </div>
       <div className="div-table-movie">
@@ -92,16 +117,16 @@ const CrudAxios = () => {
           <tbody>
             {data.map((item, index) => {
               return (
-                <tr key={index}>
+                <tr key={item.id_tb_movies}>
                   <td>{index + 1}</td>
-                  <td>{item.title_tb_movie}</td>
-                  <td>{item.year_tb_movie}</td>
+                  <td>{item.title_tb_movies}</td>
+                  <td>{item.year_tb_movies}</td>
                   <td>
                     <button
                       className="bt-del"
                       onClick={() => {
                         if (confirm("Apa Anda Yakin Menghapus File Ini ?")) {
-                          handleDelete(item.id_tb_movie);
+                          handleDelete(item.id_tb_movies);
                         }
                       }}
                     >
@@ -109,9 +134,7 @@ const CrudAxios = () => {
                     </button>
                     <button
                       className="bt-edit"
-                      onClick={() => {
-                        handleEdit(item.id_table_Movie);
-                      }}
+                      onClick={() => handleEdit(item)}
                     >
                       Edit
                     </button>
@@ -122,7 +145,6 @@ const CrudAxios = () => {
           </tbody>
         </table>
       </div>
-      `
     </>
   );
 };
