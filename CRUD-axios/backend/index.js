@@ -6,13 +6,13 @@ const port = 3000;
 
 //Route
 
-const cors = require('cors')
+const cors = require("cors");
 var corsOptions = {
   origin: "http://localhost:5173",
   optionsSuccessStatus: 200,
 };
-app.use(cors(corsOptions))
 
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/", userRouter);
 app.use("/", movieRouter);

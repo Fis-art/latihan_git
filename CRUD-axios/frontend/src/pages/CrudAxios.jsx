@@ -1,34 +1,39 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import baseUrl from "../config/utility";
 
 const CrudAxios = () => {
   const [data, setData] = useState([]);
   const [input, setInput] = useState({ movieTitle: "", movieYear: "" });
   const [editId, setEditId] = useState(null); // null = mode tambah, ada isi = mode edit
 
-  const fetchData = () => {
-    axios.get("http://localhost:3000/api/movies").then((res) => {
-        setData(res.data);
-      })
-      .catch((err) => {
-        console.error("Gagal mengambil data:", err.message);
-        alert("Gagal terhubung ke server. Pastikan backend sudah berjalan.");
-      });
-  };
+const fetchData = () => {
+  axios
+    .get(`${baseUrl}/api/movies`)
+    .then((res) => {
+      console.log("res.data =", res.data);
+      console.log("Array?", Array.isArray(res.data));
+
+      setData(res.data);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       if (editId) {
         // Mode edit: update movie yang sedang dipilih
-        await axios.put(`http://localhost:3000/api/movies/${editId}`, {
+        await axios.put(`${baseUrl}/api/movies/${editId}`, {
           title: input.movieTitle,
           year: input.movieYear,
         });
         setEditId(null);
       } else {
         // Mode tambah: buat movie baru seperti biasa
-        await axios.post("http://localhost:3000/api/movies", {
+        await axios.post(`${baseUrl}/api/movies`, {
           title: input.movieTitle,
           year: input.movieYear,
         });
@@ -47,7 +52,7 @@ const CrudAxios = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/movies/${id}`);
+      await axios.delete(`${baseUrl}/api/movies/${id}`);
       fetchData();
     } catch (err) {
       alert(err);
